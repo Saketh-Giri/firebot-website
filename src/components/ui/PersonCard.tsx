@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { Person } from "@/content/people";
+import type { Person } from "@/content/about/people";
 import { clsx } from "@/lib/clsx";
 
 export function PersonCard({ person, showBio = false }: { person: Person; showBio?: boolean }) {
@@ -23,7 +23,7 @@ export function PersonCard({ person, showBio = false }: { person: Person; showBi
             alt={person.name}
             fill
             sizes="(min-width: 1024px) 24vw, (min-width: 640px) 42vw, 85vw"
-            className="object-cover transition duration-700 ease-out-expo group-hover:scale-[1.06]"
+            className="object-cover object-top transition duration-700 ease-out-expo group-hover:scale-[1.06]"
           />
         ) : (
           <div className="flex size-full items-center justify-center bg-gradient-to-br from-surface-2 to-surface text-4xl font-semibold text-line-2">
@@ -56,7 +56,7 @@ export function PersonCard({ person, showBio = false }: { person: Person; showBi
 
       {showBio && person.bio && (
         <div className="flex-1 border-t border-white/6 p-5">
-          <p className="line-clamp-4 text-sm leading-relaxed text-muted">{person.bio}</p>
+          <p className="text-sm leading-relaxed text-muted">{person.bio}</p>
         </div>
       )}
     </article>

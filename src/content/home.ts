@@ -1,36 +1,34 @@
+import { paths } from "./paths";
+
 export interface Stat {
   value: string;
   label: string;
 }
 
-/** Short vision line under the brand — never longer than the name above it. */
-export const mission = "STEAM for everyone.";
+export const mission =
+  "Anyone with an appreciation for STEAM can succeed here — through hands-on work, and guidance from other students and mentors.";
 
-export const heroLede =
-  "Student-run robotics in Sunnyvale. Six teams. One shop. Beginners welcome.";
+export const heroLede = "Student-run robotics at Fremont High School in Sunnyvale.";
 
-/** Keep the glance grid tight — the strongest signals only. */
 export const stats: Stat[] = [
-  { value: "95", label: "active students" },
-  { value: "6", label: "competition teams" },
-  { value: "17", label: "years in FIRST" },
+  { value: "6", label: "established teams" },
+  { value: "80%", label: "of FLL teams advanced to regionals" },
   { value: "50,600+", label: "community members reached" },
-  { value: "175+", label: "outreach events, 3 years" },
-  { value: "96%", label: "pursue STEAM in college" },
+  { value: "175+", label: "outreach events in the last 3 years" },
+  { value: "11", label: "subteams: technical and non-technical" },
+  { value: "17", label: "years in FIRST" },
+  { value: "13", label: "FLL teams mentored" },
+  { value: "5:2", label: "male to female member ratio" },
+  { value: "95", label: "active students in the 2025–26 season" },
+  { value: "10", label: "FLL teams founded over the past 5 years" },
+  { value: "96%", label: "of team members pursue STEAM majors in college" },
+  { value: "15+", label: "active mentors" },
 ];
 
 export const announcement = {
-  eyebrow: "2026 Season",
-  title: "Build season is on.",
-  body: 'This year\'s FRC game is "Rebuilt." Follow the shop, the field, and the outreach.',
-  cta: { label: "Past events", href: "/previous-events" },
+  eyebrow: "2026 season",
+  title: "Build season is underway.",
+  body: 'This year’s FRC game is "Rebuilt." Follow the shop, the field, and the outreach.',
+  cta: { label: "Past events", href: paths.outreach.events },
+  image: "/images/home/06-ee0b-mv2.jpg",
 };
-
-export const homeCtas = [
-  { label: "Join Us", href: "/join-the-team", description: "Tryouts & subteams" },
-  { label: "Programs", href: "/organizational-structure", description: "FRC, FTC, BaM" },
-  { label: "Outreach", href: "/previous-events", description: "Where we've been" },
-  { label: "History", href: "/history", description: "Sixteen seasons" },
-  { label: "Sponsor", href: "/sponsor-us", description: "Put tools in hands" },
-  { label: "Contact", href: "/contact", description: "Ask a question" },
-];

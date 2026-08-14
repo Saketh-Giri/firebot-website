@@ -17,8 +17,8 @@ export default function ContactPage() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="Talk to Firebots."
-        lede="Tryouts, sponsorship, or a demo. We'll connect you."
+        title="Contact us"
+        lede="Questions about tryouts, sponsorship, or a demonstration? We will connect you with the right person."
         brandMark
       />
 
@@ -75,7 +75,7 @@ export default function ContactPage() {
 
           <Card className="p-8 md:p-10">
             <h2 className="text-xl font-semibold">Send a message</h2>
-            <p className="mt-2 text-sm text-muted">We'll get back to you.</p>
+            <p className="mt-2 text-sm text-muted">We will get back to you.</p>
             <div className="mt-8">
               <ContactForm />
             </div>

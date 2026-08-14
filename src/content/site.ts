@@ -1,7 +1,8 @@
+import { paths } from "./paths";
+
 export interface NavLink {
   label: string;
   href: string;
-  description?: string;
 }
 
 export interface NavGroup {
@@ -32,81 +33,83 @@ export const site = {
 } as const;
 
 export const nav: NavGroup[] = [
-  { label: "Home", href: "/" },
+  { label: "Home", href: paths.home },
   {
     label: "About",
     children: [
-      { label: "History", href: "/history", description: "Sixteen seasons" },
-      { label: "Structure & Values", href: "/organizational-structure", description: "How we organize" },
-      { label: "Firebots FRC", href: "/frc", description: "Team 3501" },
-      { label: "FTC", href: "/ftc", description: "Four teams" },
-      { label: "BaM", href: "/business-and-marketing", description: "Business, events, media" },
-      { label: "Leads", href: "/leads", description: "Student leadership" },
-      { label: "Mentors", href: "/mentors", description: "Our advisors" },
+      { label: "History", href: paths.about.history },
+      { label: "Structure & Values", href: paths.about.structure },
+      { label: "Firebots FRC", href: paths.programs.frc },
+      { label: "FTC", href: paths.programs.ftc },
+      { label: "Business", href: paths.programs.business },
+      { label: "Marketing", href: paths.programs.marketing },
+      { label: "Leads", href: paths.about.leads },
+      { label: "Mentors", href: paths.about.mentors },
     ],
   },
   {
     label: "Outreach",
     children: [
-      { label: "FLL Mentorship", href: "/fll-mentorship", description: "Coaching FLL" },
-      { label: "Previous Events", href: "/previous-events", description: "Past outreach" },
+      { label: "FLL Mentorship", href: paths.outreach.fll },
+      { label: "Previous Events", href: paths.outreach.events },
     ],
   },
   {
     label: "Updates",
     children: [
-      { label: "Calendar", href: "/calendar", description: "Meetings & comps" },
-      { label: "Newsletters", href: "/newsletters", description: "Season updates" },
-      { label: "Gallery", href: "/team-gallery", description: "Photos" },
+      { label: "Calendar", href: paths.updates.calendar },
+      { label: "Newsletters", href: paths.updates.newsletters },
+      { label: "Gallery", href: paths.updates.gallery },
     ],
   },
   {
     label: "Community",
     children: [
-      { label: "Community Impact", href: "/community-impact", description: "Our STEAM program" },
-      { label: "Torchbearing Tutors", href: "/torchbearing-tutors", description: "Afterschool lessons" },
-      { label: "Kindling Kits", href: "/kindling-kits", description: "Build-at-home kits" },
+      { label: "Community Impact", href: paths.community.index },
+      { label: "Torchbearing Tutors", href: paths.community.tutors },
+      { label: "Kindling Kits", href: paths.community.kits },
     ],
   },
-  { label: "Sponsors", href: "/sponsor-us" },
-  { label: "Contact", href: "/contact" },
+  { label: "Sponsors", href: paths.sponsors },
+  { label: "Contact", href: paths.contact },
 ];
 
 export const footerColumns = [
   {
     heading: "About",
     links: [
-      { label: "History", href: "/history" },
-      { label: "Structure & Values", href: "/organizational-structure" },
-      { label: "Leads", href: "/leads" },
-      { label: "Mentors", href: "/mentors" },
+      { label: "History", href: paths.about.history },
+      { label: "Structure & Values", href: paths.about.structure },
+      { label: "Leads", href: paths.about.leads },
+      { label: "Mentors", href: paths.about.mentors },
     ],
   },
   {
     heading: "Programs",
     links: [
-      { label: "Firebots FRC", href: "/frc" },
-      { label: "FTC", href: "/ftc" },
-      { label: "BaM", href: "/business-and-marketing" },
-      { label: "FLL Mentorship", href: "/fll-mentorship" },
+      { label: "Firebots FRC", href: paths.programs.frc },
+      { label: "FTC", href: paths.programs.ftc },
+      { label: "Business", href: paths.programs.business },
+      { label: "Marketing", href: paths.programs.marketing },
+      { label: "FLL Mentorship", href: paths.outreach.fll },
     ],
   },
   {
     heading: "Community",
     links: [
-      { label: "Community Impact", href: "/community-impact" },
-      { label: "Torchbearing Tutors", href: "/torchbearing-tutors" },
-      { label: "Kindling Kits", href: "/kindling-kits" },
-      { label: "Previous Events", href: "/previous-events" },
+      { label: "Community Impact", href: paths.community.index },
+      { label: "Torchbearing Tutors", href: paths.community.tutors },
+      { label: "Kindling Kits", href: paths.community.kits },
+      { label: "Previous Events", href: paths.outreach.events },
     ],
   },
   {
     heading: "Get Involved",
     links: [
-      { label: "Join", href: "/join-the-team" },
-      { label: "Sponsor", href: "/sponsor-us" },
-      { label: "Calendar", href: "/calendar" },
-      { label: "Contact", href: "/contact" },
+      { label: "Join", href: paths.join },
+      { label: "Sponsor", href: paths.sponsors },
+      { label: "Calendar", href: paths.updates.calendar },
+      { label: "Contact", href: paths.contact },
     ],
   },
 ] satisfies { heading: string; links: NavLink[] }[];

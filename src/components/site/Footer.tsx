@@ -102,7 +102,7 @@ export function Footer() {
             &copy; {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
           <p className="max-w-md sm:text-right">
-            Built by the Media subteam. FIRST&reg; is a registered trademark of FIRST, which is not
+            Built by Fremont High Robotics students. FIRST&reg; is a registered trademark of FIRST, which is not
             affiliated with this website.
           </p>
         </div>

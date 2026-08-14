@@ -44,7 +44,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         {/* Scroll reveals ship with an inline opacity:0; without JS they must still show. */}
         <noscript>
-          {/* eslint-disable-next-line react/no-danger */}
           <style
             dangerouslySetInnerHTML={{
               __html: "[data-reveal]{opacity:1!important;transform:none!important}",

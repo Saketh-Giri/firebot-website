@@ -69,12 +69,14 @@ export function LinkCard({
   eyebrow,
   title,
   description,
+  image,
   className,
 }: {
   href: string;
   eyebrow?: string;
   title: string;
   description?: string;
+  image?: string;
   className?: string;
 }) {
   const external = href.startsWith("http");
@@ -88,26 +90,46 @@ export function LinkCard({
         shell,
         spotlight,
         interactiveShell,
-        "group flex flex-col justify-between gap-8 p-7",
+        "group flex h-full flex-col",
+        !image && "justify-between gap-8 p-7",
         className,
       )}
     >
-      <div>
-        {eyebrow && (
-          <p className="font-mono text-xs font-semibold tracking-[0.2em] text-ember-300 uppercase">
-            {eyebrow}
-          </p>
-        )}
-        <h3 className="mt-3 text-xl font-semibold tracking-tight">{title}</h3>
-        {description && (
-          <p className="mt-3 leading-relaxed text-muted text-pretty-tight">{description}</p>
-        )}
-      </div>
-      <span className="flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-muted transition duration-500 ease-out-expo group-hover:border-ember-500/50 group-hover:bg-ember-500 group-hover:text-white">
-        <ArrowUpRight
-          aria-hidden
-          className="size-4 transition-transform duration-500 ease-out-expo group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-        />
+      {image && (
+        <span className="relative block aspect-16/10 overflow-hidden">
+          <Image
+            src={image}
+            alt=""
+            fill
+            sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover transition duration-700 ease-out-expo group-hover:scale-[1.06]"
+          />
+          <span
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-t from-ink/50 to-transparent"
+          />
+        </span>
+      )}
+      <span className={clsx("flex flex-1 flex-col justify-between gap-6", image && "p-6")}>
+        <span>
+          {eyebrow && (
+            <span className="font-mono text-xs font-semibold tracking-[0.2em] text-ember-300 uppercase">
+              {eyebrow}
+            </span>
+          )}
+          <span className={clsx("block text-xl font-semibold tracking-tight", eyebrow && "mt-2")}>
+            {title}
+          </span>
+          {description && (
+            <span className="mt-2 block text-sm leading-relaxed text-muted">{description}</span>
+          )}
+        </span>
+        <span className="flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-muted transition duration-500 ease-out-expo group-hover:border-ember-500/50 group-hover:bg-ember-500 group-hover:text-white">
+          <ArrowUpRight
+            aria-hidden
+            className="size-4 transition-transform duration-500 ease-out-expo group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+          />
+        </span>
       </span>
     </Link>
   );

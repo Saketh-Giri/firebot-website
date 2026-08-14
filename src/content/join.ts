@@ -3,9 +3,8 @@ export interface Faq {
   answer: string[];
 }
 
-export const joinIntro = [
-  "Curious about design, code, media, or events — or brand new to all of it? Fill out the interest form. We'll email you about tryouts.",
-];
+export const joinIntro =
+  "Curious about design, code, marketing, or events — or brand new to all of it? Fill out the interest form and we will email you about tryouts.";
 
 export const subteamTags = [
   "Mechanical Design",
@@ -13,32 +12,38 @@ export const subteamTags = [
   "Software",
   "Electrical",
   "Business",
-  "Media",
+  "Marketing",
   "Events",
 ];
 
 export const faqs: Faq[] = [
   {
-    question: "Do I need robotics experience?",
-    answer: ["No. Curiosity and dedication beat prior knowledge every time."],
-  },
-  {
-    question: "What am I trying out for?",
+    question: "Do students need experience or knowledge in robotics to try out?",
     answer: [
-      "FTC — technical, non-technical, or both. You can still cross over during the season.",
+      "No. Tryouts look at curiosity, dedication, and alignment with our core values more than prior robotics knowledge.",
     ],
   },
   {
-    question: "How do I get into FRC?",
-    answer: ["Through FTC. Mentors recommend members who are ready for Firebots."],
+    question: "What are students trying out for?",
+    answer: [
+      "FTC — technical work, non-technical work, or both. You can still move between subteams during the season.",
+    ],
   },
   {
-    question: "When are tryouts?",
-    answer: ["Usually August–September. Interest-form folks get the email first."],
+    question: "How do you get into FRC?",
+    answer: [
+      "Through FTC. After members have gained experience there, mentors invite students who are ready onto Firebots.",
+    ],
+  },
+  {
+    question: "When is information sent out about tryouts?",
+    answer: [
+      "Usually in August and September. Anyone who has filled out the interest form gets the email first.",
+    ],
   },
   {
     question: "How do tryouts work?",
-    answer: ["Fill out the interest form — details arrive in the fall."],
+    answer: ["Fill out the interest form. Details arrive in the fall."],
   },
 ];
 

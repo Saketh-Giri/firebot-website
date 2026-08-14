@@ -33,6 +33,7 @@ export function Section({
       id={id}
       className={clsx(
         "relative isolate py-20 md:py-28",
+        id && "scroll-mt-28",
         tone === "surface" &&
           "border-y border-white/6 bg-gradient-to-b from-surface/80 via-ink-2 to-surface/50",
         tone === "glow" && "overflow-hidden",

@@ -29,11 +29,17 @@ npm run lint
 
 ```
 src/
-  app/                 One folder per route, plus sitemap.ts, robots.ts, api/contact
+  app/                 Nested routes matching the sitemap, plus sitemap.ts, robots.ts, api/contact
   components/
     site/              Header, Footer, page templates, contact form
     ui/                Section, Card, Button, Stat, Accordion, Gallery, PersonCard, PageHero
-  content/             All site copy as typed modules — edit these, not the pages
+  content/             Copy and data, nested to match URLs — edit these, not the pages
+    paths.ts           Canonical hrefs and legacy redirects
+    about/             history, structure, people
+    programs/          frc, ftc, business, marketing
+    outreach/          fll, events (events render as a section on the FLL page)
+    community/         impact overview, tutors, kindling kits
+    updates/           gallery and newsletters
   lib/
 public/
   images/              Scraped photography, grouped by page, plus assets.json manifest
@@ -44,20 +50,18 @@ scripts/
 
 ### Content modules
 
-Page copy lives in `src/content` so text edits never require touching JSX:
+Page copy lives in `src/content` so text edits never require touching JSX. Folders map to URL prefixes:
 
-| Module | Contents |
+| Path | Contents |
 | --- | --- |
-| `site.ts` | Team details, socials, navigation, footer columns |
-| `home.ts` | Mission, "at a glance" stats, announcement, CTA row |
-| `programs.ts` | FRC, FTC, and Business and Marketing pages with their subteams |
-| `organization.ts` | Team structure, core values, what FIRST is |
-| `people.ts` | Lead and mentor rosters with photos and bios |
-| `history.ts` | Every season's awards and student leadership |
+| `site.ts` / `paths.ts` | Team details, navigation, footer, canonical URLs |
+| `home.ts` | Mission, glance stats, announcement, home links |
+| `about/` | History, organizational structure, leads, mentors |
+| `programs/` | FRC, FTC, Business, and Marketing |
+| `outreach/` | FLL mentorship and previous-events albums |
+| `community/` | Community Impact, Torchbearing Tutors, Kindling Kits |
+| `updates/` | Gallery albums and newsletter issues |
 | `sponsors.ts` | Tiers, benefits matrix, logos, past sponsors |
-| `outreach.ts` | FLL mentorship, FLL team awards, event albums |
-| `community.ts` | Community Impact, Torchbearing Tutors, Kindling Kits, kit pages |
-| `media.ts` | Gallery albums and newsletter issues |
 | `join.ts` | Join the team copy and tryout FAQs |
 
 ### Images

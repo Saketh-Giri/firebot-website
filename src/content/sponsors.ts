@@ -15,7 +15,7 @@ export interface PastSponsor {
 }
 
 export const sponsorsIntro =
-  "Sponsors put tools in students' hands. We are a 501(c)(3). Your support funds robots, safety gear, and outreach.";
+  "Sponsors put tools in students' hands. Fremont High Robotics is a 501(c)(3) non-profit. Your support funds robots, safety gear, and outreach.";
 
 export const whySponsor = {
   heading: "Why sponsor Firebots?",

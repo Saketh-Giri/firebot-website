@@ -4,8 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { nav, site } from "@/content/site";
+import { paths } from "@/content/paths";
 import { ButtonLink } from "@/components/ui/Button";
 import { clsx } from "@/lib/clsx";
 
@@ -38,8 +39,13 @@ export function Header() {
     };
   }, [mobileOpen]);
 
-  const isCurrent = (href?: string) =>
-    href ? (href === "/" ? pathname === "/" : pathname.startsWith(href)) : false;
+  const pathOnly = (href?: string) => href?.split("#")[0];
+
+  const isCurrent = (href?: string) => {
+    const path = pathOnly(href);
+    if (!path) return false;
+    return path === "/" ? pathname === "/" : pathname === path;
+  };
 
   const groupIsCurrent = (children?: { href: string }[]) =>
     children?.some((child) => isCurrent(child.href)) ?? false;
@@ -131,41 +137,19 @@ export function Header() {
 
                 {openGroup === item.label && (
                   <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3">
-                    <ul className="animate-rise w-84 overflow-hidden rounded-2xl border border-white/10 bg-surface/95 p-2 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.95)] backdrop-blur-2xl">
+                    <ul className="animate-rise w-56 overflow-hidden rounded-2xl border border-white/10 bg-surface/95 p-1.5 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.95)] backdrop-blur-2xl">
                       {item.children.map((child) => (
                         <li key={child.href}>
                           <Link
                             href={child.href}
                             className={clsx(
-                              "group/item flex items-start gap-3 rounded-xl px-4 py-3 transition duration-300",
+                              "flex items-center rounded-xl px-3.5 py-2.5 text-sm font-medium transition duration-300",
                               isCurrent(child.href)
-                                ? "bg-ember-500/12"
-                                : "hover:bg-white/6",
+                                ? "bg-ember-500/12 text-bright"
+                                : "text-muted hover:bg-white/6 hover:text-bright",
                             )}
                           >
-                            <span
-                              aria-hidden
-                              className={clsx(
-                                "mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-300",
-                                isCurrent(child.href)
-                                  ? "bg-ember-400"
-                                  : "bg-line-2 group-hover/item:bg-ember-400",
-                              )}
-                            />
-                            <span className="min-w-0 flex-1">
-                              <span className="flex items-center gap-1.5 text-sm font-medium">
-                                {child.label}
-                                <ArrowUpRight
-                                  aria-hidden
-                                  className="size-3.5 -translate-x-1 text-ember-300 opacity-0 transition duration-300 ease-out-expo group-hover/item:translate-x-0 group-hover/item:opacity-100"
-                                />
-                              </span>
-                              {child.description && (
-                                <span className="mt-1 block text-xs leading-relaxed text-muted">
-                                  {child.description}
-                                </span>
-                              )}
-                            </span>
+                            {child.label}
                           </Link>
                         </li>
                       ))}
@@ -193,7 +177,7 @@ export function Header() {
 
         <div className="flex items-center gap-3">
           <span className="hidden sm:block">
-            <ButtonLink href="/join-the-team" className="whitespace-nowrap">
+            <ButtonLink href={paths.join} className="whitespace-nowrap">
               Join Us
             </ButtonLink>
           </span>
@@ -260,7 +244,7 @@ export function Header() {
                 </li>
               ))}
             </ul>
-            <ButtonLink href="/join-the-team" size="lg" className="mt-6 w-full">
+            <ButtonLink href={paths.join} size="lg" className="mt-6 w-full">
               Join Us
             </ButtonLink>
             <a

@@ -1,0 +1,90 @@
+/**
+ * Canonical URLs. `src/content/<section>/<page>.ts` maps to `paths.<section>.<page>`.
+ * Nested kit pages live under `community.kindlingKits.*`.
+ */
+export const paths = {
+  home: "/",
+  about: {
+    history: "/about/history",
+    structure: "/about/structure",
+    leads: "/about/leads",
+    mentors: "/about/mentors",
+  },
+  programs: {
+    frc: "/programs/frc",
+    ftc: "/programs/ftc",
+    business: "/programs/business",
+    marketing: "/programs/marketing",
+  },
+  outreach: {
+    fll: "/outreach/fll",
+    events: "/outreach/fll#previous-events",
+  },
+  community: {
+    index: "/community",
+    tutors: "/community/torchbearing-tutors",
+    kits: "/community/kindling-kits",
+    kindlingKits: {
+      marbleCoaster: "/community/kindling-kits/marble-coaster",
+      airplaneLauncher: "/community/kindling-kits/airplane-launcher",
+      cardboardChords: "/community/kindling-kits/cardboard-chords",
+    },
+  },
+  updates: {
+    calendar: "/updates/calendar",
+    newsletters: "/updates/newsletters",
+    gallery: "/updates/gallery",
+  },
+  sponsors: "/sponsors",
+  join: "/join",
+  contact: "/contact",
+} as const;
+
+export const sitemapPaths: string[] = [
+  paths.home,
+  paths.about.history,
+  paths.about.structure,
+  paths.about.leads,
+  paths.about.mentors,
+  paths.programs.frc,
+  paths.programs.ftc,
+  paths.programs.business,
+  paths.programs.marketing,
+  paths.outreach.fll,
+  paths.community.index,
+  paths.community.tutors,
+  paths.community.kits,
+  paths.community.kindlingKits.marbleCoaster,
+  paths.community.kindlingKits.airplaneLauncher,
+  paths.community.kindlingKits.cardboardChords,
+  paths.updates.calendar,
+  paths.updates.newsletters,
+  paths.updates.gallery,
+  paths.sponsors,
+  paths.join,
+  paths.contact,
+];
+
+/** Old Wix / first-deploy URLs → nested routes. */
+export const legacyRedirects: { source: string; destination: string }[] = [
+  { source: "/history", destination: paths.about.history },
+  { source: "/organizational-structure", destination: paths.about.structure },
+  { source: "/leads", destination: paths.about.leads },
+  { source: "/mentors", destination: paths.about.mentors },
+  { source: "/frc", destination: paths.programs.frc },
+  { source: "/ftc", destination: paths.programs.ftc },
+  { source: "/business-and-marketing", destination: paths.programs.business },
+  { source: "/fll-mentorship", destination: paths.outreach.fll },
+  { source: "/previous-events", destination: paths.outreach.events },
+  { source: "/calendar", destination: paths.updates.calendar },
+  { source: "/newsletters", destination: paths.updates.newsletters },
+  { source: "/team-gallery", destination: paths.updates.gallery },
+  { source: "/community-impact", destination: paths.community.index },
+  { source: "/torchbearing-tutors", destination: paths.community.tutors },
+  { source: "/kindling-kits", destination: paths.community.kits },
+  { source: "/marblecoaster", destination: paths.community.kindlingKits.marbleCoaster },
+  { source: "/airplane-launcher", destination: paths.community.kindlingKits.airplaneLauncher },
+  { source: "/cardboard-chords", destination: paths.community.kindlingKits.cardboardChords },
+  { source: "/sponsor-us", destination: paths.sponsors },
+  { source: "/join-the-team", destination: paths.join },
+];
