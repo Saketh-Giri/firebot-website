@@ -17,7 +17,7 @@ export const fll = {
     },
     {
       title: "Robot",
-      body: "Design, build, and program a LEGO MINDSTORMS® robot with attachments.",
+      body: "Design, build, and program a LEGO Education robot with attachments.",
     },
     {
       title: "Compete",

@@ -1,5 +1,3 @@
-import { paths } from "./paths";
-
 export interface Stat {
   value: string;
   label: string;
@@ -11,7 +9,7 @@ export const mission =
 export const heroLede = "Student-run robotics at Fremont High School in Sunnyvale.";
 
 export const stats: Stat[] = [
-  { value: "6", label: "established teams" },
+  { value: "5", label: "competition teams" },
   { value: "80%", label: "of FLL teams advanced to regionals" },
   { value: "50,600+", label: "community members reached" },
   { value: "175+", label: "outreach events in the last 3 years" },
@@ -24,11 +22,3 @@ export const stats: Stat[] = [
   { value: "96%", label: "of team members pursue STEAM majors in college" },
   { value: "15+", label: "active mentors" },
 ];
-
-export const announcement = {
-  eyebrow: "2026 season",
-  title: "Build season is underway.",
-  body: 'This year’s FRC game is "Rebuilt." Follow the shop, the field, and the outreach.',
-  cta: { label: "Past events", href: paths.outreach.events },
-  image: "/images/home/06-ee0b-mv2.jpg",
-};

@@ -44,11 +44,14 @@ export default function JoinPage() {
               ))}
             </ul>
           </div>
-          <Photo
-            src={recruitmentFlyer}
-            alt="Fremont High Robotics recruitment flyer"
-            className="aspect-3/4 min-h-96 w-full"
-          />
+          <div>
+            <Photo
+              src={recruitmentFlyer}
+              alt="Fremont High Robotics recruitment flyer from 2022–23"
+              className="aspect-3/4 min-h-96 w-full"
+            />
+            <p className="mt-3 text-sm text-dim">Flyer from 2022–23. Use the interest form for this season.</p>
+          </div>
         </div>
       </Section>
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ProgramPage } from "@/components/site/ProgramPage";
+import { FtcSeasonResults } from "@/components/site/SeasonResults";
 import { ftc } from "@/content/programs";
 
 export const metadata: Metadata = {
@@ -9,5 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default function FtcPage() {
-  return <ProgramPage program={ftc} />;
+  return (
+    <>
+      <ProgramPage program={ftc} />
+      <FtcSeasonResults />
+    </>
+  );
 }

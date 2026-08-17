@@ -33,6 +33,17 @@ export function Header() {
   }
 
   useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpenGroup(null);
+        setMobileOpen(false);
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
@@ -83,7 +94,7 @@ export function Header() {
             />
             <Image
               src="/images/shared/logo.png"
-              alt=""
+              alt="Firebots"
               width={56}
               height={56}
               priority
@@ -115,6 +126,8 @@ export function Header() {
                 <button
                   type="button"
                   aria-expanded={openGroup === item.label}
+                  aria-haspopup="menu"
+                  aria-controls={`nav-menu-${item.label}`}
                   onClick={() =>
                     setOpenGroup((current) => (current === item.label ? null : item.label))
                   }
@@ -137,11 +150,16 @@ export function Header() {
 
                 {openGroup === item.label && (
                   <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3">
-                    <ul className="animate-rise w-56 overflow-hidden rounded-2xl border border-white/10 bg-surface/95 p-1.5 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.95)] backdrop-blur-2xl">
+                    <ul
+                      id={`nav-menu-${item.label}`}
+                      role="menu"
+                      className="animate-rise w-56 overflow-hidden rounded-2xl border border-white/10 bg-surface/95 p-1.5 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.95)] backdrop-blur-2xl"
+                    >
                       {item.children.map((child) => (
                         <li key={child.href}>
                           <Link
                             href={child.href}
+                            role="menuitem"
                             className={clsx(
                               "flex items-center rounded-xl px-3.5 py-2.5 text-sm font-medium transition duration-300",
                               isCurrent(child.href)

@@ -16,7 +16,7 @@ export default function TeamGalleryPage() {
       <PageHero
         eyebrow="Gallery"
         title="Team gallery"
-        lede="Build, compete, outreach."
+        lede="Build, compete, outreach. Cover photos from seasons going back to 2014 — highlights, not full albums."
         image="/images/team-gallery/02-pxl-20230312-050937766.jpg"
       />
 

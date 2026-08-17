@@ -48,10 +48,19 @@ export function ButtonLink({
   className,
   withArrow = false,
   children,
+  href,
   ...props
 }: ButtonLinkProps) {
+  const external = typeof href === "string" && /^https?:\/\//.test(href);
+
   return (
-    <Link className={clsx(base, variants[variant], sizes[size], className)} {...props}>
+    <Link
+      href={href}
+      className={clsx(base, variants[variant], sizes[size], className)}
+      {...props}
+      target={external ? "_blank" : props.target}
+      rel={external ? "noreferrer noopener" : props.rel}
+    >
       <span className="relative">{children}</span>
       {withArrow && (
         <ArrowRight

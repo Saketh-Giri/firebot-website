@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { FileDown } from "lucide-react";
+import { ButtonLink } from "@/components/ui/Button";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
+import { site } from "@/content/site";
 import { newsletterYears } from "@/content/updates/media";
 
 export const metadata: Metadata = {
@@ -17,8 +19,16 @@ export default function NewslettersPage() {
       <PageHero
         eyebrow="Newsletter"
         title="FHS Robotics Rewind"
-        lede="Season updates for sponsors, families, and the FIRST community."
-      />
+        lede="Season updates for sponsors, families, and the FIRST community. Issues on this site run through March 2022 — follow Instagram for newer recaps."
+      >
+        <ButtonLink
+          href={site.socials.find((social) => social.label === "Instagram")?.href ?? "https://instagram.com/fremonthighrobotics"}
+          variant="secondary"
+          withArrow
+        >
+          Instagram
+        </ButtonLink>
+      </PageHero>
 
       {newsletterYears.map((group, index) => (
         <Section

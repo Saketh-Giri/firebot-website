@@ -4,11 +4,13 @@ import { LinkCard } from "@/components/ui/Card";
 import { Eyebrow, Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { Stat } from "@/components/ui/Stat";
-import { announcement, heroLede, mission, stats } from "@/content/home";
+import { heroLede, mission, stats } from "@/content/home";
 import { programs } from "@/content/programs";
 import { sponsorLogos } from "@/content/sponsors";
 import { competitionTeams } from "@/content/about/structure";
 import { paths } from "@/content/paths";
+import { season } from "@/content/season";
+import { site } from "@/content/site";
 
 const heroImage = "/images/home/01-0b69-mv2.jpg";
 
@@ -63,7 +65,7 @@ export default function HomePage() {
               <ButtonLink href={paths.join} size="lg" withArrow>
                 Join the Team
               </ButtonLink>
-              <ButtonLink href={paths.about.structure} size="lg" variant="secondary">
+              <ButtonLink href={paths.programs.index} size="lg" variant="secondary">
                 Programs
               </ButtonLink>
             </div>
@@ -114,26 +116,45 @@ export default function HomePage() {
       <Section eyebrow="Support" heading="Sponsors power the shop" tone="surface">
         <div className="group mask-fade-x relative overflow-hidden">
           <div className="flex w-max animate-marquee items-center gap-4 py-4">
-            {[...sponsorLogos, ...sponsorLogos].map((sponsor, index) => (
-              <div
-                key={`${sponsor.name}-${index}`}
-                className="flex h-20 w-40 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/95 px-4 py-3"
-              >
-                <Image
-                  src={sponsor.image}
-                  alt={index < sponsorLogos.length ? sponsor.name : ""}
-                  aria-hidden={index >= sponsorLogos.length}
-                  width={180}
-                  height={80}
-                  className="h-full w-full object-contain"
-                />
-              </div>
-            ))}
+            {[...sponsorLogos, ...sponsorLogos].map((sponsor, index) => {
+              const duplicate = index >= sponsorLogos.length;
+              const logo = (
+                <span className="flex h-20 w-40 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/95 px-4 py-3">
+                  <Image
+                    src={sponsor.image}
+                    alt={duplicate ? "" : sponsor.name}
+                    aria-hidden={duplicate}
+                    width={180}
+                    height={80}
+                    className="h-full w-full object-contain"
+                  />
+                </span>
+              );
+
+              if (sponsor.href && !duplicate) {
+                return (
+                  <a
+                    key={`${sponsor.name}-${index}`}
+                    href={sponsor.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="transition duration-300 hover:-translate-y-0.5"
+                  >
+                    {logo}
+                  </a>
+                );
+              }
+
+              return <div key={`${sponsor.name}-${index}`}>{logo}</div>;
+            })}
           </div>
         </div>
-        <div className="mt-10">
+        <div className="mt-10 flex flex-wrap gap-3">
           <ButtonLink href={paths.sponsors} withArrow>
             Become a Sponsor
+          </ButtonLink>
+          <ButtonLink href={season.donate.href} variant="secondary">
+            Donate
           </ButtonLink>
         </div>
       </Section>
@@ -142,7 +163,7 @@ export default function HomePage() {
         <div className="relative isolate grid overflow-hidden rounded-3xl border border-white/10 lg:grid-cols-2">
           <div className="relative min-h-72">
             <Image
-              src={announcement.image}
+              src={season.announcement.image}
               alt=""
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
@@ -154,14 +175,19 @@ export default function HomePage() {
               aria-hidden
               className="animate-drift pointer-events-none absolute -top-24 -right-16 -z-10 size-[18rem] rounded-full bg-ember-600/16 blur-[90px]"
             />
-            <Eyebrow>{announcement.eyebrow}</Eyebrow>
+            <Eyebrow>{season.announcement.eyebrow}</Eyebrow>
             <h2 className="text-gradient-bright mt-5 text-3xl font-semibold tracking-tight">
-              {announcement.title}
+              {season.announcement.title}
             </h2>
-            <p className="mt-4 max-w-md leading-relaxed text-muted">{announcement.body}</p>
-            <ButtonLink href={announcement.cta.href} className="mt-8" withArrow>
-              {announcement.cta.label}
-            </ButtonLink>
+            <p className="mt-4 max-w-md leading-relaxed text-muted">{season.announcement.body}</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <ButtonLink href={site.interestForm} withArrow>
+                {season.announcement.cta.label}
+              </ButtonLink>
+              <ButtonLink href={season.announcement.secondary.href} variant="secondary">
+                {season.announcement.secondary.label}
+              </ButtonLink>
+            </div>
           </div>
         </div>
       </Section>

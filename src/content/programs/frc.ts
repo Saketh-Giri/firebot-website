@@ -16,7 +16,7 @@ export const frc: Program = {
   sections: [
     {
       heading: "Team 3501 Firebots",
-      body: "After FTC, mentors invite students onto Firebots. Four technical subteams — Design, Manufacturing, Electrical, and Software — integrate toward the end of build season.",
+      body: "After FTC, mentors invite students onto Firebots. Four technical subteams — Design, Manufacturing, Electrical, and Software — plus Integration toward the end of build season.",
       image: "/images/home/06-ee0b-mv2.jpg",
       imageAlt: "Firebots at an FRC competition",
     },
@@ -34,14 +34,18 @@ export const frc: Program = {
       image: "/images/frc/04-manufactoring-logo.png",
     },
     {
-      name: "Integration",
-      description: "Keep every subteam aligned on mechanisms and decisions.",
-      image: "/images/frc/05-integration-logo.png",
+      name: "Electrical",
+      description: "Wire, power, and instrument the robot so software has a reliable machine to drive.",
     },
     {
       name: "Software",
       description: "Controls, autonomy, vision, and reliable driver code.",
       image: "/images/frc/06-software-logo.png",
+    },
+    {
+      name: "Integration",
+      description: "Keep Design, Manufacturing, Electrical, and Software aligned on mechanisms and decisions.",
+      image: "/images/frc/05-integration-logo.png",
     },
   ],
   logo: "/images/frc/01-firstrobotics-iconvert-rgb.png",

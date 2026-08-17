@@ -6,7 +6,9 @@ import { Card } from "@/components/ui/Card";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { site } from "@/content/site";
+import { season } from "@/content/season";
 import {
+  additionalSeasonPartners,
   benefitTiers,
   benefits,
   pastSponsors,
@@ -41,18 +43,20 @@ export default function SponsorPage() {
         lede={sponsorsIntro}
         brandMark
       >
-        <ButtonLink href={`mailto:${site.email}?subject=Sponsoring%20Firebots%203501`} size="lg" withArrow>
-          Talk sponsorship
-        </ButtonLink>
+        <div className="flex flex-wrap gap-3">
+          <ButtonLink href={`mailto:${site.email}?subject=Sponsoring%20Firebots%203501`} size="lg" withArrow>
+            Talk sponsorship
+          </ButtonLink>
+          <ButtonLink href={season.donate.href} size="lg" variant="secondary">
+            Donate
+          </ButtonLink>
+        </div>
       </PageHero>
 
       <Section eyebrow="Supporters" heading="This season's partners">
         <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {sponsorLogos.map((sponsor) => (
-            <li
-              key={sponsor.name}
-              className="flex h-28 items-center justify-center rounded-2xl border border-white/10 bg-white/95 px-6 py-5 transition duration-500 ease-out-expo hover:-translate-y-1.5 hover:shadow-glow"
-            >
+          {sponsorLogos.map((sponsor) => {
+            const inner = (
               <Image
                 src={sponsor.image}
                 alt={sponsor.name}
@@ -60,9 +64,25 @@ export default function SponsorPage() {
                 height={120}
                 className="h-full w-full object-contain"
               />
-            </li>
-          ))}
+            );
+            const shell =
+              "flex h-28 items-center justify-center rounded-2xl border border-white/10 bg-white/95 px-6 py-5 transition duration-500 ease-out-expo hover:-translate-y-1.5 hover:shadow-glow";
+            return (
+              <li key={sponsor.name}>
+                {sponsor.href ? (
+                  <a href={sponsor.href} target="_blank" rel="noreferrer noopener" className={shell}>
+                    {inner}
+                  </a>
+                ) : (
+                  <div className={shell}>{inner}</div>
+                )}
+              </li>
+            );
+          })}
         </ul>
+        <p className="mt-8 text-sm text-muted">
+          FIRST also listed {additionalSeasonPartners.join(", ")} among 2026 season partners.
+        </p>
       </Section>
 
       <Section eyebrow="Why" heading={whySponsor.heading} tone="surface">
@@ -95,6 +115,13 @@ export default function SponsorPage() {
             </ul>
           </Card>
         </div>
+        <p className="mt-10 max-w-2xl text-sm leading-relaxed text-muted">
+          {season.donate.matching} Questions:{" "}
+          <a href={`mailto:${season.donate.matchingContact}`} className="text-ember-300 hover:underline">
+            {season.donate.matchingContact}
+          </a>
+          .
+        </p>
       </Section>
 
       <Section eyebrow="Benefits" heading="What each level includes">

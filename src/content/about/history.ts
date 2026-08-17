@@ -12,7 +12,7 @@ export interface Season {
 export const historyIntro = [
   { year: "2010", title: "The Grinders", body: "Ten students at Fremont High. FRC 3501 Firebots from 2011 — at least two regionals a year since." },
   { year: "2019", title: "FTC begins", body: "Sparkbots and Infernobots: smaller teams, and a path from FTC into FRC." },
-  { year: "Today", title: "Six teams", body: "Emberbots and Electrobots joined later. About 12 students per FTC team, 39 on FRC." },
+  { year: "Today", title: "Five competition teams", body: "Emberbots and Electrobots joined later. About 12 students per FTC team, ~30 on FRC." },
 ];
 
 export const historyPhotos = [

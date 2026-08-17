@@ -13,7 +13,7 @@ export interface PersonGroup {
 }
 
 export const leadsIntro =
-  "Student leadership for the 2025–26 season. Leads run the shop, the competition teams, and our community programs.";
+  "Student leadership from the 2025–26 season. Class of 2026 members have graduated; 2026–27 leads will be posted after tryouts.";
 
 export const leadGroups: PersonGroup[] = [
   {
@@ -192,7 +192,7 @@ export const mentorGroups: PersonGroup[] = [
         name: "Ruth Nuttall",
         role: "FRC Software Lead Mentor",
         since: "since 2024",
-        bio: "Ruth studied Computer Science at California State Polytechnic, Pomona receiving a Bachelors before going on to work at Northrop Grumman and then two HealthTech startups as Software Engineer. Having been involved with FIRST for just over 10 years she has been on teams such as 399, 1538, 7415, and 1967 before coming to 3501 and volunteers extensible in roles such as FTA, CSA, or whatever needs filled out that weekend.",
+        bio: "Ruth studied Computer Science at California State Polytechnic, Pomona receiving a Bachelors before going on to work at Northrop Grumman and then two HealthTech startups as Software Engineer. Having been involved with FIRST for just over 10 years she has been on teams such as 399, 1538, 7415, and 1967 before coming to 3501 and volunteers extensively in roles such as FTA, CSA, or whatever needs filled out that weekend.",
         image: "/images/mentors/09-ruth.jpg",
       },
       {

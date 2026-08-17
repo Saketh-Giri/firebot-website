@@ -18,5 +18,5 @@ export interface Program {
   logo?: string;
   mascot?: string;
   photos?: { src: string; alt: string }[];
-  teams?: { name: string; number: string; image: string }[];
+  teams?: { name: string; number: string; image: string; href?: string }[];
 }

@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { JsonLd } from "@/components/site/JsonLd";
 import { MotionProvider } from "@/components/ui/MotionProvider";
 import { site } from "@/content/site";
 import "./globals.css";
@@ -28,10 +29,22 @@ export const metadata: Metadata = {
     "FRC Team 3501 Firebots — student-run robotics at Fremont High in Sunnyvale. Anyone with an appreciation for STEAM can succeed here.",
   openGraph: {
     title: "Firebots 3501",
-    description: "Student-run robotics at Fremont High. Six teams. One shop.",
+    description: "Student-run robotics at Fremont High. Five competition teams. One shop.",
     url: site.url,
     siteName: "Firebots",
     type: "website",
+    images: [
+      {
+        url: "/images/home/01-0b69-mv2.jpg",
+        alt: "Fremont High Robotics at competition",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Firebots 3501",
+    description: "Student-run robotics at Fremont High in Sunnyvale.",
+    images: ["/images/home/01-0b69-mv2.jpg"],
   },
 };
 
@@ -63,6 +76,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <MotionProvider>{children}</MotionProvider>
         </main>
         <Footer />
+        <JsonLd />
         <Analytics />
         <SpeedInsights />
       </body>

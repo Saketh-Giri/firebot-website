@@ -19,7 +19,7 @@ export function Footer() {
             <Link href="/" className="group flex items-center gap-3">
               <Image
                 src="/images/shared/logo.png"
-                alt=""
+                alt="Firebots"
                 width={52}
                 height={52}
                 className="size-12 rounded-full ring-1 ring-white/10 transition duration-500 group-hover:ring-ember-500/50"
@@ -81,6 +81,8 @@ export function Footer() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
+                        target={link.href.startsWith("http") ? "_blank" : undefined}
+                        rel={link.href.startsWith("http") ? "noreferrer noopener" : undefined}
                         className="group inline-flex items-center gap-2 text-sm text-muted transition-colors duration-300 hover:text-bright"
                       >
                         <span

@@ -1,4 +1,5 @@
 import { paths } from "./paths";
+import { season } from "./season";
 
 export interface NavLink {
   label: string;
@@ -33,18 +34,22 @@ export const site = {
 } as const;
 
 export const nav: NavGroup[] = [
-  { label: "Home", href: paths.home },
   {
     label: "About",
     children: [
       { label: "History", href: paths.about.history },
       { label: "Structure & Values", href: paths.about.structure },
+      { label: "Leads", href: paths.about.leads },
+      { label: "Mentors", href: paths.about.mentors },
+    ],
+  },
+  {
+    label: "Programs",
+    children: [
       { label: "Firebots FRC", href: paths.programs.frc },
       { label: "FTC", href: paths.programs.ftc },
       { label: "Business", href: paths.programs.business },
       { label: "Marketing", href: paths.programs.marketing },
-      { label: "Leads", href: paths.about.leads },
-      { label: "Mentors", href: paths.about.mentors },
     ],
   },
   {
@@ -71,6 +76,7 @@ export const nav: NavGroup[] = [
     ],
   },
   { label: "Sponsors", href: paths.sponsors },
+  { label: "Join", href: paths.join },
   { label: "Contact", href: paths.contact },
 ];
 
@@ -87,6 +93,7 @@ export const footerColumns = [
   {
     heading: "Programs",
     links: [
+      { label: "All programs", href: paths.programs.index },
       { label: "Firebots FRC", href: paths.programs.frc },
       { label: "FTC", href: paths.programs.ftc },
       { label: "Business", href: paths.programs.business },
@@ -108,6 +115,7 @@ export const footerColumns = [
     links: [
       { label: "Join", href: paths.join },
       { label: "Sponsor", href: paths.sponsors },
+      { label: "Donate", href: season.donate.href },
       { label: "Calendar", href: paths.updates.calendar },
       { label: "Contact", href: paths.contact },
     ],

@@ -91,29 +91,49 @@ export function ProgramPage({ program }: { program: Program }) {
       {program.teams && (
         <Section heading="Our FTC teams">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {program.teams.map((team) => (
-              <Card
-                key={team.number}
-                interactive
-                className="group flex flex-col items-center gap-4 text-center"
-              >
-                <div className="flex size-20 items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-2.5 transition duration-500 group-hover:border-ember-500/40">
-                  <Image
-                    src={team.image}
-                    alt=""
-                    width={80}
-                    height={80}
-                    className="size-full object-contain"
-                  />
-                </div>
-                <div>
-                  <p className="font-mono text-sm font-semibold text-ember-300 tabular-nums">
-                    {team.number}
-                  </p>
-                  <p className="mt-1 font-semibold tracking-tight">{team.name}</p>
-                </div>
-              </Card>
-            ))}
+            {program.teams.map((team) => {
+              const inner = (
+                <>
+                  <div className="flex size-20 items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-2.5 transition duration-500 group-hover:border-ember-500/40">
+                    <Image
+                      src={team.image}
+                      alt=""
+                      width={80}
+                      height={80}
+                      className="size-full object-contain"
+                    />
+                  </div>
+                  <div>
+                    <p className="font-mono text-sm font-semibold text-ember-300 tabular-nums">
+                      {team.number}
+                    </p>
+                    <p className="mt-1 font-semibold tracking-tight">{team.name}</p>
+                  </div>
+                </>
+              );
+
+              return team.href ? (
+                <Link
+                  key={team.number}
+                  href={team.href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="block h-full"
+                >
+                  <Card interactive className="group flex h-full flex-col items-center gap-4 text-center">
+                    {inner}
+                  </Card>
+                </Link>
+              ) : (
+                <Card
+                  key={team.number}
+                  interactive
+                  className="group flex flex-col items-center gap-4 text-center"
+                >
+                  {inner}
+                </Card>
+              );
+            })}
           </div>
         </Section>
       )}

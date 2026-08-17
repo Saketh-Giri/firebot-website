@@ -7,6 +7,7 @@ export interface Tier {
 export interface SponsorLogo {
   name: string;
   image: string;
+  href?: string;
 }
 
 export interface PastSponsor {
@@ -40,20 +41,23 @@ export const whySponsor = {
 
 /** Corporate and foundation supporters shown as logos on the live site. */
 export const sponsorLogos: SponsorLogo[] = [
-  { name: "Google", image: "/images/home/08-b49d-mv2.png" },
-  { name: "Apple", image: "/images/home/07-ad14-mv2.png" },
-  { name: "Qualcomm", image: "/images/sponsor-us/13-master-qc-logo-pms-pos.png" },
-  { name: "Synopsys", image: "/images/sponsor-us/07-c5f1-mv2.png" },
-  { name: "TE Connectivity", image: "/images/sponsor-us/12-b6d7-mv2.png" },
-  { name: "Gene Haas Foundation", image: "/images/sponsor-us/08-a3d3-mv2.png" },
-  { name: "PG&E Corporation Foundation", image: "/images/sponsor-us/09-d25f-mv2.png" },
-  { name: "Argosy Foundation", image: "/images/sponsor-us/14-7b86-mv2.png" },
+  { name: "Google", image: "/images/home/08-b49d-mv2.png", href: "https://www.google.com" },
+  { name: "Apple", image: "/images/home/07-ad14-mv2.png", href: "https://www.apple.com" },
+  { name: "Qualcomm", image: "/images/sponsor-us/13-master-qc-logo-pms-pos.png", href: "https://www.qualcomm.com" },
+  { name: "Synopsys", image: "/images/sponsor-us/07-c5f1-mv2.png", href: "https://www.synopsys.com" },
+  { name: "TE Connectivity", image: "/images/sponsor-us/12-b6d7-mv2.png", href: "https://www.te.com" },
+  { name: "Gene Haas Foundation", image: "/images/sponsor-us/08-a3d3-mv2.png", href: "https://ghaasfoundation.org" },
+  { name: "PG&E Corporation Foundation", image: "/images/sponsor-us/09-d25f-mv2.png", href: "https://www.pge.com" },
+  { name: "Argosy Foundation", image: "/images/sponsor-us/14-7b86-mv2.png", href: "https://www.argosy.org" },
   { name: "Dream Maker Fund", image: "/images/sponsor-us/10-4050-mv2.png" },
-  { name: "Intuitive Surgical", image: "/images/sponsor-us/11-intuitivesurgicallogo.png" },
+  { name: "Intuitive Surgical", image: "/images/sponsor-us/11-intuitivesurgicallogo.png", href: "https://www.intuitive.com" },
   { name: "Turbine", image: "/images/sponsor-us/16-f779-mv2.png" },
-  { name: "Fabworks", image: "/images/sponsor-us/19-fe22-mv2.png" },
+  { name: "Fabworks", image: "/images/sponsor-us/19-fe22-mv2.png", href: "https://www.fabworks.com" },
   { name: "Igx", image: "/images/sponsor-us/06-igx-logo-bw.jpg" },
 ];
+
+/** Extra names FIRST listed for the 2026 robot that we do not have logos for. */
+export const additionalSeasonPartners = ["ASUS", "Fremont HS Parents", "Fremont High School"];
 
 export const tiers: Tier[] = [
   {
@@ -129,7 +133,7 @@ export const benefits: { benefit: string; tiers: (typeof benefitTiers)[number][]
 ];
 
 export const pastSponsors: PastSponsor[] = [
-  { name: "JCPenny", years: "2010 - 2012" },
+  { name: "JCPenney", years: "2010 - 2012" },
   { name: "Abbott Fund", years: "2011 - 2014" },
   { name: "Symantec", years: "2011 - 2014" },
   { name: "Cadence", years: "2013 - 2014" },

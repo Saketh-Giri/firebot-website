@@ -75,7 +75,9 @@ export default function ContactPage() {
 
           <Card className="p-8 md:p-10">
             <h2 className="text-xl font-semibold">Send a message</h2>
-            <p className="mt-2 text-sm text-muted">We will get back to you.</p>
+            <p className="mt-2 text-sm text-muted">
+              Send opens a draft to {site.email} unless the team has connected an email service.
+            </p>
             <div className="mt-8">
               <ContactForm />
             </div>

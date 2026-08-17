@@ -11,6 +11,7 @@ export const paths = {
     mentors: "/about/mentors",
   },
   programs: {
+    index: "/programs",
     frc: "/programs/frc",
     ftc: "/programs/ftc",
     business: "/programs/business",
@@ -46,6 +47,7 @@ export const sitemapPaths: string[] = [
   paths.about.structure,
   paths.about.leads,
   paths.about.mentors,
+  paths.programs.index,
   paths.programs.frc,
   paths.programs.ftc,
   paths.programs.business,

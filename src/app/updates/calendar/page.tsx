@@ -1,22 +1,17 @@
 import type { Metadata } from "next";
 import { ButtonLink } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { site } from "@/content/site";
 import { paths } from "@/content/paths";
+import { season } from "@/content/season";
 
 export const metadata: Metadata = {
   title: "Calendar",
   description:
-    "Meetings, build sessions, outreach events, and competitions for the current Fremont High Robotics season.",
+    "Meetings, build sessions, outreach events, and competitions for Fremont High Robotics.",
 };
-
-/**
- * The live site embeds a Google Calendar. Point this at the team calendar id to
- * light it up; until then the section explains how to get the schedule.
- */
-const calendarEmbedSrc =
-  "https://calendar.google.com/calendar/embed?src=en.usa%23holiday%40group.v.calendar.google.com&ctz=America%2FLos_Angeles&bgcolor=%23121316&mode=MONTH&showTitle=0&showPrint=0&showTabs=1&showCalendars=0";
 
 export default function CalendarPage() {
   return (
@@ -24,28 +19,30 @@ export default function CalendarPage() {
       <PageHero
         eyebrow="Calendar"
         title="Calendar"
-        lede="Build season typically runs January through April. Outreach continues year-round."
+        lede="Build season typically runs January through April. Outreach continues year-round. Tryout details go out in August and September."
       />
 
-      <Section>
-        <div className="overflow-hidden rounded-2xl border border-white/10 surface-panel shadow-lift">
-          <div className="flex items-center gap-2.5 border-b border-white/8 px-5 py-3.5">
-            <span aria-hidden className="size-2 rounded-full bg-ember-500" />
-            <p className="font-mono text-xs tracking-[0.16em] text-muted uppercase">
-              Season schedule &middot; Pacific Time
-            </p>
-          </div>
-          <iframe
-            src={calendarEmbedSrc}
-            title="Fremont High Robotics calendar"
-            className="h-[70vh] min-h-[520px] w-full"
-            loading="lazy"
-            /* The embed only ships a light theme; inverting keeps it on-brand. */
-            style={{ filter: "invert(0.93) hue-rotate(180deg)" }}
-          />
-        </div>
-        <p className="mt-6 text-sm text-muted">
-          Need the live team calendar? Email{" "}
+      <Section heading="Upcoming" lede={season.calendar.intro}>
+        <ul className="space-y-4">
+          {season.calendar.events.map((event) => (
+            <li key={event.title}>
+              <Card className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="font-mono text-xs font-semibold tracking-[0.16em] text-ember-300 uppercase">
+                    {event.when}
+                  </p>
+                  <h3 className="mt-2 text-lg font-semibold tracking-tight">{event.title}</h3>
+                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted">{event.detail}</p>
+                </div>
+                <ButtonLink href={event.href} variant="secondary" className="shrink-0">
+                  Details
+                </ButtonLink>
+              </Card>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-8 text-sm text-muted">
+          Need shop hours or the live team calendar? Email{" "}
           <a href={`mailto:${site.email}`} className="text-ember-300 hover:underline">
             {site.email}
           </a>
@@ -57,6 +54,9 @@ export default function CalendarPage() {
         <div className="flex flex-wrap gap-4">
           <ButtonLink href={paths.join} withArrow>
             Join the team
+          </ButtonLink>
+          <ButtonLink href={season.links.tba} variant="secondary">
+            The Blue Alliance
           </ButtonLink>
           <ButtonLink href={paths.outreach.events} variant="secondary">
             Past events

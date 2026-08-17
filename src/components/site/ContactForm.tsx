@@ -2,17 +2,20 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { contactMailto } from "@/lib/mailto";
+import { site } from "@/content/site";
 
 interface Fields {
   firstName: string;
   lastName: string;
   email: string;
   message: string;
+  website: string;
 }
 
-const empty: Fields = { firstName: "", lastName: "", email: "", message: "" };
+const empty: Fields = { firstName: "", lastName: "", email: "", message: "", website: "" };
 
-const labels: Record<keyof Fields, string> = {
+const labels: Record<Exclude<keyof Fields, "website">, string> = {
   firstName: "First Name",
   lastName: "Last Name",
   email: "Email",
@@ -22,7 +25,7 @@ const labels: Record<keyof Fields, string> = {
 export function ContactForm() {
   const [fields, setFields] = useState<Fields>(empty);
   const [errors, setErrors] = useState<Partial<Record<keyof Fields, string>>>({});
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "mailed" | "error">("idle");
 
   const validate = () => {
     const next: Partial<Record<keyof Fields, string>> = {};
@@ -45,10 +48,19 @@ export function ContactForm() {
         headers: { "content-type": "application/json" },
         body: JSON.stringify(fields),
       });
-      if (!response.ok) throw new Error("Request failed");
-      setStatus("sent");
-      setFields(empty);
+      const data = (await response.json()) as { ok?: boolean; delivered?: boolean; mailto?: string };
+
+      if (data.delivered) {
+        setStatus("sent");
+        setFields(empty);
+        return;
+      }
+
+      const mailto = data.mailto ?? contactMailto(fields);
+      window.location.href = mailto;
+      setStatus("mailed");
     } catch {
+      window.location.href = contactMailto(fields);
       setStatus("error");
     }
   };
@@ -62,7 +74,19 @@ export function ContactForm() {
     "mt-2.5 w-full rounded-xl border border-white/10 bg-ink/60 px-4 py-3 text-base outline-none transition duration-300 placeholder:text-dim hover:border-white/20 focus:border-ember-500/70 focus:bg-ink/80 focus:shadow-[0_0_0_4px_rgba(224,31,38,0.12)] aria-invalid:border-ember-500/60";
 
   return (
-    <form onSubmit={onSubmit} noValidate className="space-y-6">
+    <form onSubmit={onSubmit} noValidate className="relative space-y-6">
+      <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden>
+        <label htmlFor="website">Website</label>
+        <input
+          id="website"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          value={fields.website}
+          onChange={update("website")}
+        />
+      </div>
+
       <div className="grid gap-6 sm:grid-cols-2">
         {(["firstName", "lastName"] as const).map((key) => (
           <div key={key}>
@@ -134,8 +158,9 @@ export function ContactForm() {
           {status === "sending" ? "Sending..." : "Send"}
         </Button>
         <p aria-live="polite" className="text-sm text-muted">
-          {status === "sent" && "Thanks for submitting!"}
-          {status === "error" && "Something went wrong. Please email us instead."}
+          {status === "sent" && "Thanks — we have the message."}
+          {status === "mailed" && `Your email app should open a draft to ${site.email}.`}
+          {status === "error" && `If nothing opened, email ${site.email}.`}
         </p>
       </div>
     </form>
