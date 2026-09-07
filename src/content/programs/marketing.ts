@@ -9,7 +9,7 @@ export const marketing: Program = {
   short: "Brand, socials, photo, video, this site, and community events.",
   cover: "/images/business-and-marketing/02-img-0120-jpg.jpg",
   highlights: [
-    { value: "Brand", label: "and merchandise" },
+    { value: "Brand", label: "identity and merchandise" },
     { value: "Photo + video", label: "at every event" },
     { value: "Outreach", label: "year-round" },
   ],

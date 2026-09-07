@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { JsonLd } from "@/components/site/JsonLd";
+import { ClickSpark } from "@/components/fx/ClickSpark";
 import { MotionProvider } from "@/components/ui/MotionProvider";
 import { site } from "@/content/site";
 import "./globals.css";
@@ -76,6 +77,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <MotionProvider>{children}</MotionProvider>
         </main>
         <Footer />
+        <ClickSpark />
         <JsonLd />
         <Analytics />
         <SpeedInsights />

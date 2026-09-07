@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/Button";
+import { StatefulButton } from "@/components/fx/StatefulButton";
 import { contactMailto } from "@/lib/mailto";
 import { site } from "@/content/site";
 
@@ -68,6 +68,8 @@ export function ContactForm() {
   const update = (key: keyof Fields) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFields((current) => ({ ...current, [key]: event.target.value }));
     if (errors[key]) setErrors((current) => ({ ...current, [key]: undefined }));
+    // Typing again after a result arms the button for another send.
+    if (status !== "idle" && status !== "sending") setStatus("idle");
   };
 
   const fieldClass =
@@ -154,9 +156,20 @@ export function ContactForm() {
       </div>
 
       <div className="flex flex-wrap items-center gap-4">
-        <Button type="submit" size="lg" disabled={status === "sending"}>
-          {status === "sending" ? "Sending..." : "Send"}
-        </Button>
+        <StatefulButton
+          state={
+            status === "sending"
+              ? "loading"
+              : status === "sent" || status === "mailed"
+                ? "success"
+                : status === "error"
+                  ? "error"
+                  : "idle"
+          }
+          successLabel={status === "mailed" ? "Draft opened" : "Sent"}
+        >
+          Send
+        </StatefulButton>
         <p aria-live="polite" className="text-sm text-muted">
           {status === "sent" && "Thanks — we have the message."}
           {status === "mailed" && `Your email app should open a draft to ${site.email}.`}

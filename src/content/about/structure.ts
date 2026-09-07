@@ -1,10 +1,77 @@
+import { paths } from "../paths";
+
 export interface CoreValue {
   name: string;
   points: string[];
 }
 
+export interface OrgNode {
+  name: string;
+  detail?: string;
+  href?: string;
+}
+
+export interface OrgBranch extends OrgNode {
+  /** Two-to-four letter badge, e.g. "FRC". */
+  badge: string;
+  children: OrgNode[];
+}
+
 export const orgIntro =
   "Student-led by design. Mentors advise; students run the shop, the teams, and the outreach.";
+
+/** The org chart: one organization, four branches, students all the way down. */
+export const orgChart: { root: OrgNode; branches: OrgBranch[] } = {
+  root: { name: "Fremont High Robotics", detail: "Student leads · Mentors advise" },
+  branches: [
+    {
+      badge: "FRC",
+      name: "Firebots",
+      detail: "Team 3501",
+      href: paths.programs.frc,
+      children: [
+        { name: "Design", detail: "VP of Design" },
+        { name: "Manufacturing", detail: "VP of Manufacturing" },
+        { name: "Integration", detail: "VP of Integration" },
+        { name: "Software", detail: "VP of Software" },
+      ],
+    },
+    {
+      badge: "FTC",
+      name: "Tech Challenge",
+      detail: "Four teams",
+      href: paths.programs.ftc,
+      children: [
+        { name: "Sparkbots", detail: "Team 16532" },
+        { name: "Infernobots", detail: "Team 16533" },
+        { name: "Emberbots", detail: "Team 26106" },
+        { name: "Electrobots", detail: "Team 30541" },
+      ],
+    },
+    {
+      badge: "BaM",
+      name: "Business & Marketing",
+      detail: "Every team",
+      href: paths.programs.business,
+      children: [
+        { name: "Business", detail: "Finance, sponsors, judging", href: paths.programs.business },
+        { name: "Marketing", detail: "Brand, socials, media", href: paths.programs.marketing },
+      ],
+    },
+    {
+      badge: "CI",
+      name: "Community Impact",
+      detail: "Year-round outreach",
+      href: paths.community.index,
+      children: [
+        { name: "Torchbearing Tutors", detail: "Lessons in schools", href: paths.community.tutors },
+        { name: "Kindling Kits", detail: "Build-at-home kits", href: paths.community.kits },
+        { name: "Measurement", detail: "Director of Measurement" },
+        { name: "Education Programs", detail: "Director of Education" },
+      ],
+    },
+  ],
+};
 
 export const competitionTeams = [
   { number: "3501", name: "Firebots", program: "FRC" },
@@ -76,6 +143,6 @@ export const aboutFirst = {
 };
 
 export const structurePhotos = {
-  shop: "/images/organizational-structure/01-dd11-mv2.jpg",
+  shop: "/images/team-gallery/25-img-9183-1-jpg.jpg",
   first: "/images/organizational-structure/03-first-vertical-rgb.png",
 };

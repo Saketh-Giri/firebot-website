@@ -9,7 +9,7 @@ export const frc: Program = {
   short: "Design, build, and compete with a robot from scratch — 3v3 alliances.",
   cover: "/images/home/06-ee0b-mv2.jpg",
   highlights: [
-    { value: "~30", label: "students" },
+    { value: "39", label: "students this season" },
     { value: "4", label: "technical subteams" },
     { value: "3v3", label: "alliance format" },
   ],

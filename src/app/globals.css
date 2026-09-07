@@ -10,6 +10,7 @@
   --color-ember-500: #e01f26;
   --color-ember-600: #b8121a;
   --color-ember-700: #8c0e14;
+  --color-ember-800: #62090e;
   --color-ember-900: #430508;
 
   /* Secondary accent, used sparingly so the red keeps its weight. */
@@ -221,6 +222,80 @@ body::before {
   mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
 
+@utility mask-fade-y {
+  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+}
+
+@utility mask-fade-t {
+  mask-image: linear-gradient(to top, #000 55%, transparent);
+}
+
+/* Soft vignette so canvas backgrounds never end on a hard edge. */
+@utility mask-vignette {
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, #000 40%, transparent 100%);
+}
+
+/*
+ * Pointer-tracked glow. A client component writes --mx / --my (in px) onto the
+ * element; these layers read them. Falls back to a centred, invisible glow.
+ */
+@utility glow-surface {
+  --mx: 50%;
+  --my: 50%;
+  --glow: 0;
+  position: relative;
+  isolation: isolate;
+}
+
+@utility glow-layer {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: var(--glow);
+  transition: opacity 0.5s var(--ease-out-expo);
+  background: radial-gradient(
+    220px circle at var(--mx) var(--my),
+    --alpha(var(--color-ember-500) / 18%),
+    transparent 70%
+  );
+}
+
+/* Border that lights up only near the pointer. */
+@utility glow-border {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  opacity: var(--glow);
+  transition: opacity 0.5s var(--ease-out-expo);
+  background: radial-gradient(
+    260px circle at var(--mx) var(--my),
+    --alpha(var(--color-ember-400) / 80%),
+    --alpha(var(--color-ember-500) / 25%) 35%,
+    transparent 70%
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+/* Outline-only type for the giant footer wordmark and section numerals. */
+@utility text-outline {
+  -webkit-text-stroke: 1px --alpha(#fff / 18%);
+  color: transparent;
+}
+
+/* Hides the scrollbar on horizontally scrolled strips. */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @keyframes rise {
   from {
     opacity: 0;
@@ -273,6 +348,73 @@ body::before {
   }
 }
 
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Light sweep across text; used on the mono eyebrow labels. */
+@keyframes shimmer {
+  from {
+    background-position: 200% center;
+  }
+  to {
+    background-position: -200% center;
+  }
+}
+
+/* Slow, irregular flicker for the live status dot, like a pilot light. */
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  41% {
+    opacity: 0.85;
+  }
+  43% {
+    opacity: 0.55;
+  }
+  45% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes scan {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 28s linear infinite;
+}
+
+.animate-flicker {
+  animation: flicker 4.5s ease-in-out infinite;
+}
+
+.text-shimmer {
+  background-image: linear-gradient(
+    110deg,
+    currentColor 40%,
+    #fff 50%,
+    currentColor 60%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 5s linear infinite;
+}
+
 .animate-rise {
   animation: rise 0.3s var(--ease-out-expo) both;
 }
@@ -283,6 +425,11 @@ body::before {
 
 .animate-marquee-slow {
   animation: marquee 78s linear infinite;
+}
+
+/* Band inside the flowing menu; must keep running while its row is hovered. */
+.animate-marquee-band {
+  animation: marquee 14s linear infinite;
 }
 
 .group:hover .animate-marquee,
@@ -309,11 +456,20 @@ body::before {
 
   .animate-marquee,
   .animate-marquee-slow,
+  .animate-marquee-band,
   .animate-drift,
   .animate-drift-slow,
   .animate-pulse-ring,
+  .animate-spin-slow,
+  .animate-flicker,
+  .text-shimmer,
   .animate-rise {
     animation: none;
+  }
+
+  .text-shimmer {
+    background-image: none;
+    -webkit-text-fill-color: currentColor;
   }
 
   *,

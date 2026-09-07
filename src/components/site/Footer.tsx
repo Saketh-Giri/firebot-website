@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin } from "lucide-react";
 import { footerColumns, site } from "@/content/site";
+import { TextHover } from "@/components/fx/TextHover";
 import { SocialIcon } from "./SocialIcon";
 
 export function Footer() {
@@ -110,12 +111,9 @@ export function Footer() {
         </div>
       </div>
 
-      <p
-        aria-hidden
-        className="pointer-events-none -mb-3 flex justify-center bg-gradient-to-b from-white/[0.055] to-transparent bg-clip-text text-center text-[clamp(2.75rem,11vw,9rem)] leading-none font-bold tracking-[-0.05em] text-transparent select-none md:-mb-6"
-      >
-        FIREBOTS 3501
-      </p>
+      <div className="container-page -mb-2 md:-mb-4">
+        <TextHover text="FIREBOTS 3501" height={150} className="mx-auto max-w-5xl" />
+      </div>
     </footer>
   );
 }

@@ -3,19 +3,30 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
 import { nav, site } from "@/content/site";
 import { paths } from "@/content/paths";
 import { ButtonLink } from "@/components/ui/Button";
 import { clsx } from "@/lib/clsx";
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
+  const [hovered, setHovered] = useState<string | null>(null);
   const closeTimer = useRef<number | null>(null);
+  // Pointer type of the most recent press on a group trigger. Lets a mouse
+  // click keep a hover-opened menu open (instead of toggling it shut) and lets
+  // touch ignore the emulated mouseenter that precedes a tap.
+  const lastPointer = useRef<string | null>(null);
+
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 30, mass: 0.4 });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -42,6 +53,17 @@ export function Header() {
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
   }, []);
+
+  // A dropdown opened by click (touch, keyboard) closes on a click elsewhere.
+  const navRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (!openGroup) return;
+    const onPointerDown = (event: PointerEvent) => {
+      if (!navRef.current?.contains(event.target as Node)) setOpenGroup(null);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [openGroup]);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -90,7 +112,7 @@ export function Header() {
           <span className="relative flex shrink-0">
             <span
               aria-hidden
-              className="absolute inset-0 -z-10 rounded-full bg-ember-500/45 blur-lg opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              className="absolute inset-0 -z-10 rounded-full bg-ember-500/45 opacity-0 blur-lg transition-opacity duration-500 group-hover:opacity-100"
             />
             <Image
               src="/images/shared/logo.png"
@@ -102,95 +124,143 @@ export function Header() {
             />
           </span>
           <span className="flex flex-col leading-none whitespace-nowrap">
-            <span className="text-lg font-bold tracking-[-0.03em] uppercase sm:text-xl">
-              Firebots
-            </span>
+            <span className="text-lg font-bold tracking-[-0.03em] uppercase sm:text-xl">Firebots</span>
             <span className="mt-1 font-mono text-[0.7rem] font-semibold tracking-[0.18em] text-ember-400 uppercase">
               {site.teamNumber} · FHS Robotics
             </span>
           </span>
         </Link>
 
-        <nav aria-label="Main" className="hidden items-center gap-0.5 lg:flex">
-          {nav.map((item) =>
-            item.children ? (
+        <nav
+          ref={navRef}
+          aria-label="Main"
+          className="hidden items-center gap-0.5 lg:flex"
+          onMouseLeave={() => setHovered(null)}
+        >
+          {nav.map((item) => {
+            const key = item.label;
+            const current = item.children ? groupIsCurrent(item.children) : isCurrent(item.href);
+            const pill = hovered === key && (
+              <motion.span
+                layoutId="nav-pill"
+                aria-hidden
+                className="absolute inset-0 -z-10 rounded-full bg-white/8"
+                transition={{ type: "spring", stiffness: 420, damping: 34, mass: 0.6 }}
+              />
+            );
+            const dot = current && (
+              <span
+                aria-hidden
+                className="absolute -bottom-0.5 left-1/2 size-1 -translate-x-1/2 rounded-full bg-ember-400 shadow-[0_0_8px_1px_rgba(246,86,79,0.8)]"
+              />
+            );
+            const linkClass = clsx(
+              "relative flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300",
+              current || hovered === key || openGroup === key ? "text-bright" : "text-muted",
+            );
+
+            return item.children ? (
               <div
-                key={item.label}
+                key={key}
                 className="relative"
                 onMouseEnter={() => {
+                  if (lastPointer.current === "touch") return;
                   cancelClose();
-                  setOpenGroup(item.label);
+                  setHovered(key);
+                  setOpenGroup(key);
                 }}
                 onMouseLeave={scheduleClose}
+                onBlur={(event) => {
+                  // Keyboard users tabbing out of the group shouldn't leave it open.
+                  if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                    setOpenGroup((c) => (c === key ? null : c));
+                  }
+                }}
               >
                 <button
                   type="button"
-                  aria-expanded={openGroup === item.label}
-                  aria-haspopup="menu"
-                  aria-controls={`nav-menu-${item.label}`}
-                  onClick={() =>
-                    setOpenGroup((current) => (current === item.label ? null : item.label))
-                  }
-                  className={clsx(
-                    "flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition duration-300",
-                    groupIsCurrent(item.children) || openGroup === item.label
-                      ? "bg-white/8 text-bright"
-                      : "text-muted hover:bg-white/5 hover:text-bright",
-                  )}
+                  aria-expanded={openGroup === key}
+                  aria-controls={`nav-menu-${key}`}
+                  onFocus={() => setHovered(key)}
+                  onPointerDown={(event) => {
+                    lastPointer.current = event.pointerType;
+                  }}
+                  onClick={() => {
+                    const viaMouse = lastPointer.current === "mouse";
+                    lastPointer.current = null;
+                    setOpenGroup((c) => (c === key && !viaMouse ? null : key));
+                  }}
+                  className={linkClass}
                 >
+                  {pill}
                   {item.label}
                   <ChevronDown
                     aria-hidden
                     className={clsx(
                       "size-3.5 transition-transform duration-300 ease-out-expo",
-                      openGroup === item.label && "rotate-180",
+                      openGroup === key && "rotate-180",
                     )}
                   />
+                  {dot}
                 </button>
 
-                {openGroup === item.label && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3">
-                    <ul
-                      id={`nav-menu-${item.label}`}
-                      role="menu"
-                      className="animate-rise w-56 overflow-hidden rounded-2xl border border-white/10 bg-surface/95 p-1.5 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.95)] backdrop-blur-2xl"
-                    >
-                      {item.children.map((child) => (
-                        <li key={child.href}>
-                          <Link
-                            href={child.href}
-                            role="menuitem"
-                            className={clsx(
-                              "flex items-center rounded-xl px-3.5 py-2.5 text-sm font-medium transition duration-300",
-                              isCurrent(child.href)
-                                ? "bg-ember-500/12 text-bright"
-                                : "text-muted hover:bg-white/6 hover:text-bright",
-                            )}
+                <AnimatePresence>
+                  {openGroup === key && (
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3">
+                      <motion.ul
+                        id={`nav-menu-${key}`}
+                        initial={{ opacity: 0, y: 10, scale: 0.97, filter: "blur(4px)" }}
+                        animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, y: 6, scale: 0.98, filter: "blur(4px)" }}
+                        transition={{ duration: 0.26, ease }}
+                        className="w-60 overflow-hidden rounded-2xl border border-white/10 bg-surface/95 p-1.5 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.95)] backdrop-blur-2xl"
+                      >
+                        <span
+                          aria-hidden
+                          className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-ember-400/70 to-transparent"
+                        />
+                        {item.children.map((child, i) => (
+                          <motion.li
+                            key={child.href}
+                            initial={{ opacity: 0, x: -6 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.04 + i * 0.035, duration: 0.25, ease }}
                           >
-                            {child.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                            <Link
+                              href={child.href}
+                              aria-current={isCurrent(child.href) ? "page" : undefined}
+                              className={clsx(
+                                "group/item flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-medium transition duration-300",
+                                isCurrent(child.href)
+                                  ? "bg-ember-500/12 text-bright"
+                                  : "text-muted hover:bg-white/6 hover:text-bright",
+                              )}
+                            >
+                              {child.label}
+                              <ArrowUpRight className="size-3.5 -translate-x-1 opacity-0 transition duration-300 group-hover/item:translate-x-0 group-hover/item:opacity-60" />
+                            </Link>
+                          </motion.li>
+                        ))}
+                      </motion.ul>
+                    </div>
+                  )}
+                </AnimatePresence>
               </div>
             ) : (
               <Link
                 key={item.href}
                 href={item.href!}
-                aria-current={isCurrent(item.href) ? "page" : undefined}
-                className={clsx(
-                  "rounded-full px-4 py-2 text-sm font-medium transition duration-300",
-                  isCurrent(item.href)
-                    ? "bg-white/8 text-bright"
-                    : "text-muted hover:bg-white/5 hover:text-bright",
-                )}
+                aria-current={current ? "page" : undefined}
+                onMouseEnter={() => setHovered(key)}
+                onFocus={() => setHovered(key)}
+                className={linkClass}
               >
+                {pill}
                 {item.label}
+                {dot}
               </Link>
-            ),
-          )}
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-3">
@@ -204,76 +274,121 @@ export function Header() {
             aria-expanded={mobileOpen}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             onClick={() => setMobileOpen((open) => !open)}
-            className="rounded-full border border-white/12 bg-white/5 p-2.5 transition duration-300 hover:border-ember-500/50 hover:bg-ember-500/10 lg:hidden"
+            className="relative rounded-full border border-white/12 bg-white/5 p-2.5 transition duration-300 hover:border-ember-500/50 hover:bg-ember-500/10 lg:hidden"
           >
-            {mobileOpen ? (
-              <X aria-hidden className="size-5" />
-            ) : (
-              <Menu aria-hidden className="size-5" />
-            )}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={mobileOpen ? "x" : "menu"}
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.18 }}
+                className="block"
+              >
+                {mobileOpen ? <X aria-hidden className="size-5" /> : <Menu aria-hidden className="size-5" />}
+              </motion.span>
+            </AnimatePresence>
           </button>
         </div>
       </div>
 
-      {mobileOpen && (
-        <div className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-white/8 bg-ink/95 backdrop-blur-2xl lg:hidden">
-          <nav aria-label="Mobile" className="container-page py-6">
-            <ul className="divide-y divide-white/8">
-              {nav.map((item) => (
-                <li key={item.label} className="py-5">
-                  {item.children ? (
-                    <>
-                      <p className="font-mono text-[0.7rem] font-semibold tracking-[0.2em] text-ember-300 uppercase">
-                        {item.label}
-                      </p>
-                      <ul className="mt-3 space-y-1">
-                        {item.children.map((child) => (
-                          <li key={child.href}>
-                            <Link
-                              href={child.href}
-                              className={clsx(
-                                "flex items-center gap-3 rounded-xl px-3 py-2.5 text-base transition-colors duration-200",
-                                isCurrent(child.href)
-                                  ? "bg-ember-500/12 text-bright"
-                                  : "text-muted hover:bg-white/5 hover:text-bright",
-                              )}
-                            >
-                              <span
-                                aria-hidden
+      {/* Reading progress, drawn along the header's bottom edge once scrolled. */}
+      <motion.span
+        aria-hidden
+        style={{ scaleX: progress }}
+        className={clsx(
+          "absolute inset-x-0 bottom-0 h-px origin-left bg-gradient-to-r from-ember-500 via-flare-400 to-ember-500 transition-opacity duration-500",
+          scrolled && !mobileOpen ? "opacity-100" : "opacity-0",
+        )}
+      />
+
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            key="mobile"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-white/8 bg-ink/95 backdrop-blur-2xl lg:hidden"
+          >
+            <nav aria-label="Mobile" className="container-page py-6">
+              <motion.ul
+                initial="hidden"
+                animate="visible"
+                variants={{ visible: { transition: { staggerChildren: 0.05, delayChildren: 0.05 } } }}
+                className="divide-y divide-white/8"
+              >
+                {nav.map((item) => (
+                  <motion.li
+                    key={item.label}
+                    variants={{
+                      hidden: { opacity: 0, y: 14 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease } },
+                    }}
+                    className="py-5"
+                  >
+                    {item.children ? (
+                      <>
+                        <p className="font-mono text-[0.7rem] font-semibold tracking-[0.2em] text-ember-300 uppercase">
+                          {item.label}
+                        </p>
+                        <ul className="mt-3 grid gap-1 sm:grid-cols-2">
+                          {item.children.map((child) => (
+                            <li key={child.href}>
+                              <Link
+                                href={child.href}
                                 className={clsx(
-                                  "size-1.5 shrink-0 rounded-full",
-                                  isCurrent(child.href) ? "bg-ember-400" : "bg-line-2",
+                                  "flex items-center gap-3 rounded-xl px-3 py-2.5 text-lg font-medium tracking-tight transition-colors duration-200",
+                                  isCurrent(child.href)
+                                    ? "bg-ember-500/12 text-bright"
+                                    : "text-muted hover:bg-white/5 hover:text-bright",
                                 )}
-                              />
-                              {child.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  ) : (
-                    <Link
-                      href={item.href!}
-                      className="block text-base font-semibold tracking-tight transition-colors hover:text-ember-300"
-                    >
-                      {item.label}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-            <ButtonLink href={paths.join} size="lg" className="mt-6 w-full">
-              Join Us
-            </ButtonLink>
-            <a
-              href={`mailto:${site.email}`}
-              className="mt-4 block text-center text-sm text-muted transition-colors hover:text-ember-300"
-            >
-              {site.email}
-            </a>
-          </nav>
-        </div>
-      )}
+                              >
+                                <span
+                                  aria-hidden
+                                  className={clsx(
+                                    "size-1.5 shrink-0 rounded-full",
+                                    isCurrent(child.href) ? "bg-ember-400" : "bg-line-2",
+                                  )}
+                                />
+                                {child.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    ) : (
+                      <Link
+                        href={item.href!}
+                        className="flex items-center justify-between text-2xl font-semibold tracking-tight transition-colors hover:text-ember-300"
+                      >
+                        {item.label}
+                        <ArrowUpRight className="size-5 text-dim" />
+                      </Link>
+                    )}
+                  </motion.li>
+                ))}
+              </motion.ul>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.4, ease }}
+              >
+                <ButtonLink href={paths.join} size="lg" className="mt-6 w-full">
+                  Join Us
+                </ButtonLink>
+                <a
+                  href={`mailto:${site.email}`}
+                  className="mt-4 block text-center text-sm text-muted transition-colors hover:text-ember-300"
+                >
+                  {site.email}
+                </a>
+              </motion.div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

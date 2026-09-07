@@ -70,6 +70,7 @@ export function LinkCard({
   title,
   description,
   image,
+  media,
   className,
 }: {
   href: string;
@@ -77,9 +78,12 @@ export function LinkCard({
   title: string;
   description?: string;
   image?: string;
+  /** Custom artwork in place of `image`; rendered in the same 16:10 slot. */
+  media?: ReactNode;
   className?: string;
 }) {
   const external = href.startsWith("http");
+  const hasMedia = Boolean(image || media);
 
   return (
     <Link
@@ -91,10 +95,17 @@ export function LinkCard({
         spotlight,
         interactiveShell,
         "group flex h-full flex-col",
-        !image && "justify-between gap-8 p-7",
+        !hasMedia && "justify-between gap-8 p-7",
         className,
       )}
     >
+      {media && !image && (
+        <div className="relative aspect-16/10 overflow-hidden border-b border-white/8">
+          <div className="absolute inset-0 transition duration-700 ease-out-expo group-hover:scale-[1.03]">
+            {media}
+          </div>
+        </div>
+      )}
       {image && (
         <span className="relative block aspect-16/10 overflow-hidden">
           <Image
@@ -110,7 +121,7 @@ export function LinkCard({
           />
         </span>
       )}
-      <span className={clsx("flex flex-1 flex-col justify-between gap-6", image && "p-6")}>
+      <span className={clsx("flex flex-1 flex-col justify-between gap-6", hasMedia && "p-6")}>
         <span>
           {eyebrow && (
             <span className="font-mono text-xs font-semibold tracking-[0.2em] text-ember-300 uppercase">

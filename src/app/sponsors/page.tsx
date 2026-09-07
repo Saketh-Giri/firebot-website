@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Check } from "lucide-react";
+import { Glow } from "@/components/fx/Glow";
+import { TiltCard } from "@/components/fx/TiltCard";
 import { ButtonLink } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { PageHero } from "@/components/ui/PageHero";
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { site } from "@/content/site";
 import { season } from "@/content/season";
@@ -37,12 +40,7 @@ const tierMetal: Record<string, string> = {
 export default function SponsorPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Sponsors"
-        title="Sponsor us"
-        lede={sponsorsIntro}
-        brandMark
-      >
+      <PageHero eyebrow="Sponsors" title="Sponsor us" lede={sponsorsIntro}>
         <div className="flex flex-wrap gap-3">
           <ButtonLink href={`mailto:${site.email}?subject=Sponsoring%20Firebots%203501`} size="lg" withArrow>
             Talk sponsorship
@@ -55,7 +53,7 @@ export default function SponsorPage() {
 
       <Section eyebrow="Supporters" heading="This season's partners">
         <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {sponsorLogos.map((sponsor) => {
+          {sponsorLogos.map((sponsor, i) => {
             const inner = (
               <Image
                 src={sponsor.image}
@@ -66,16 +64,20 @@ export default function SponsorPage() {
               />
             );
             const shell =
-              "flex h-28 items-center justify-center rounded-2xl border border-white/10 bg-white/95 px-6 py-5 transition duration-500 ease-out-expo hover:-translate-y-1.5 hover:shadow-glow";
+              "flex h-28 items-center justify-center rounded-2xl border border-white/10 bg-white/95 px-6 py-5 transition duration-500 ease-out-expo hover:shadow-glow focus-visible:ring-2 focus-visible:ring-ember-400 focus-visible:outline-none";
             return (
               <li key={sponsor.name}>
-                {sponsor.href ? (
-                  <a href={sponsor.href} target="_blank" rel="noreferrer noopener" className={shell}>
-                    {inner}
-                  </a>
-                ) : (
-                  <div className={shell}>{inner}</div>
-                )}
+                <Reveal delay={Math.min(i * 0.04, 0.3)}>
+                  <TiltCard maxTilt={8} scale={1.04}>
+                    {sponsor.href ? (
+                      <a href={sponsor.href} target="_blank" rel="noreferrer noopener" className={shell}>
+                        {inner}
+                      </a>
+                    ) : (
+                      <div className={shell}>{inner}</div>
+                    )}
+                  </TiltCard>
+                </Reveal>
               </li>
             );
           })}
@@ -225,7 +227,7 @@ export default function SponsorPage() {
           {tiers.map((tier) => {
             const metal = tierMetal[tier.name];
             return (
-              <div
+              <Glow
                 key={tier.name}
                 className="relative overflow-hidden rounded-2xl border border-white/8 surface-panel p-7 pl-8 transition duration-500 ease-out-expo hover:border-white/16"
               >
@@ -263,7 +265,7 @@ export default function SponsorPage() {
                     This level is open. Could your name go here?
                   </p>
                 )}
-              </div>
+              </Glow>
             );
           })}
         </div>

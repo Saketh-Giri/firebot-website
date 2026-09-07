@@ -3,6 +3,7 @@ import { Gallery } from "@/components/ui/Gallery";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { albums } from "@/content/updates/media";
+import { imageSize } from "@/lib/image-size";
 
 export const metadata: Metadata = {
   title: "Team Gallery",
@@ -11,6 +12,9 @@ export const metadata: Metadata = {
 };
 
 export default function TeamGalleryPage() {
+  // Intrinsic sizes let the masonry lay out without any layout shift.
+  const items = albums.map((album) => ({ ...album, ...(imageSize(album.image) ?? {}) }));
+
   return (
     <>
       <PageHero
@@ -21,7 +25,10 @@ export default function TeamGalleryPage() {
       />
 
       <Section>
-        <Gallery items={albums} />
+        <p className="mb-8 font-mono text-xs tracking-[0.16em] text-dim uppercase">
+          {albums.length} albums · select a photo to view it full size
+        </p>
+        <Gallery items={items} columns={3} />
       </Section>
     </>
   );

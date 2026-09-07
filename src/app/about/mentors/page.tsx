@@ -15,7 +15,10 @@ export default function MentorsPage() {
       <PageHero eyebrow="Mentors" title="Our mentors" lede={mentorsIntro} />
 
       <Section>
-        <PeopleRoster groups={mentorGroups} showBio />
+        <p className="mb-10 font-mono text-xs tracking-[0.16em] text-dim uppercase">
+          Select a mentor to read their bio
+        </p>
+        <PeopleRoster groups={mentorGroups} />
       </Section>
     </>
   );

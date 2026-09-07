@@ -24,14 +24,27 @@ export const fll = {
       body: "Matches on a 4×8 ft table, while living FIRST Core Values.",
     },
   ],
+  /** The two FIRST LEGO League divisions our teams compete in. */
+  divisions: [
+    {
+      name: "FLL Challenge",
+      ages: "Ages 9–14",
+      body: "A robot game on the table and an innovation project judged alongside it.",
+      image: "/images/fll-mentorship/01-fll-rgb-challenge-vert-icon-full-color.png",
+    },
+    {
+      name: "FLL Explore",
+      ages: "Ages 6–10",
+      body: "Teams build a motorized LEGO model and present a poster about what they learned.",
+      image: "/images/fll-mentorship/02-fll-rgb-explore-vert-icon-full-color.png",
+    },
+  ],
   historyHeading: "Since 2015",
   history:
     "We have founded 10 FLL Challenge teams in Sunnyvale, mentored 12+, and hosted qualifiers in 2018, 2019, and 2022.",
   videoSeries: "In 2020 we shipped a free video series so FLL teams could start without meeting in person.",
   videoSections: ["FLL Fundamentals", "Project", "Robot Design and Strategy", "EV3 Programming"],
   images: {
-    challenge: "/images/fll-mentorship/01-fll-rgb-challenge-vert-icon-full-color.png",
-    explore: "/images/fll-mentorship/02-fll-rgb-explore-vert-icon-full-color.png",
     photo: "/images/fll-mentorship/03-img-20151121-172506-1.jpg",
     history: "/images/fll-mentorship/04-alpha-betas-jpg.jpg",
     support: "/images/fll-mentorship/05-fll-support-logo-final.png",

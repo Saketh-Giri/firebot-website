@@ -10,9 +10,28 @@ export interface Season {
 }
 
 export const historyIntro = [
-  { year: "2010", title: "The Grinders", body: "Ten students at Fremont High. FRC 3501 Firebots from 2011 — at least two regionals a year since." },
-  { year: "2019", title: "FTC begins", body: "Sparkbots and Infernobots: smaller teams, and a path from FTC into FRC." },
-  { year: "Today", title: "Five competition teams", body: "Emberbots and Electrobots joined later. About 12 students per FTC team, ~30 on FRC." },
+  {
+    year: "2010",
+    title: "The Grinders",
+    body: "Ten students at Fremont High. FRC 3501 Firebots from 2011 — at least two regionals a year since, and an all-time peak of 131 active members in 2018.",
+  },
+  {
+    year: "2019",
+    title: "FTC begins",
+    body: "Sparkbots and Infernobots: teams of about ten, and a path from FTC into FRC. Emberbots followed in 2020, through the pandemic.",
+  },
+  {
+    year: "Today",
+    title: "Five competition teams",
+    body: "Electrobots joined for the 2025–26 season. About 12 students per FTC team and 39 on FRC.",
+  },
+];
+
+/** Headline figures for the history page. */
+export const historyFigures = [
+  { value: "2010", label: "Founded" },
+  { value: "131", label: "Members at the 2018 peak" },
+  { value: "5", label: "Competition teams" },
 ];
 
 export const historyPhotos = [

@@ -13,29 +13,39 @@ export interface PersonGroup {
 }
 
 export const leadsIntro =
-  "Student leadership from the 2025–26 season. Class of 2026 members have graduated; 2026–27 leads will be posted after tryouts.";
+  "Student leadership for the 2026–27 season. Leads run the shop, the teams, and the outreach; mentors advise.";
 
+/**
+ * Roster matches fremontrobotics.com/leads. Photos live under
+ * public/images/leads/2026-27. Leads without a photo yet fall back to initials.
+ */
 export const leadGroups: PersonGroup[] = [
   {
     heading: "Executive",
     people: [
       {
-        name: "Christopher Kao",
+        name: "Arjun Vuppaladadium",
         role: "President",
-        classOf: "Class of 2026",
-        image: "/images/leads/01-chris-new.jpg",
+        classOf: "Class of 2027",
+        image: "/images/leads/2026-27/01-arjun-vuppaladadium.png",
       },
       {
-        name: "Nina Chandy",
+        name: "Sophia Hoang",
         role: "VP of Community Impact Programs",
-        classOf: "Class of 2026",
-        image: "/images/leads/02-nina.jpeg",
+        classOf: "Class of 2028",
+        image: "/images/leads/2026-27/02-sophia-hoang.webp",
       },
       {
-        name: "Mahesh Kodam",
+        name: "Maya Panse",
         role: "VP of Business",
-        classOf: "Class of 2026",
-        image: "/images/leads/03-img-4983.jpg",
+        classOf: "Class of 2027",
+        image: "/images/leads/2026-27/03-maya-panse.jpg",
+      },
+      {
+        name: "Vidyuth Pasumarthi",
+        role: "VP of Marketing",
+        classOf: "Class of 2027",
+        image: "/images/leads/2026-27/04-vidyuth-pasumarthi.webp",
       },
     ],
   },
@@ -43,28 +53,27 @@ export const leadGroups: PersonGroup[] = [
     heading: "FIRST Robotics Competition",
     people: [
       {
-        name: "Anthon Buynitsky",
+        name: "Dhruv Lagu",
         role: "VP of Design",
-        classOf: "Class of 2026",
-        image: "/images/leads/04-anthon-for-website.jpg",
+        classOf: "Class of 2028",
+        image: "/images/leads/2026-27/05-dhruv-lagu.jpg",
       },
       {
-        name: "Akhil Pathapati",
+        name: "Rishan Checker",
         role: "VP of Manufacturing",
-        classOf: "Class of 2026",
-        image: "/images/leads/05-acylic.png",
+        classOf: "Class of 2028",
+        image: "/images/leads/2026-27/06-rishan-checker.png",
       },
       {
-        name: "Kalash Venkumahanti",
+        name: "Puneeth Salgundi",
         role: "VP of Integration",
-        classOf: "Class of 2026",
-        image: "/images/leads/06-kalash-new.jpeg",
+        classOf: "Class of 2029",
+        image: "/images/leads/2026-27/07-puneeth-salgundi.jpg",
       },
       {
-        name: "Anthony Lu",
+        name: "Sid Senthil",
         role: "VP of Software",
-        classOf: "Class of 2026",
-        image: "/images/leads/07-img-5255.jpg",
+        classOf: "Class of 2028",
       },
     ],
   },
@@ -72,22 +81,21 @@ export const leadGroups: PersonGroup[] = [
     heading: "FIRST Tech Challenge",
     people: [
       {
-        name: "Raj Petkar",
+        name: "Srihari Iyer",
         role: "Varsity FTC Lead",
-        classOf: "Class of 2026",
-        image: "/images/leads/08-raj.jpg",
+        classOf: "Class of 2028",
+        image: "/images/leads/2026-27/09-srihari-iyer.jpg",
       },
       {
-        name: "Vianna Moshtaghi",
+        name: "Tanisha Chatterjee",
         role: "JV FTC Lead",
-        classOf: "Class of 2026",
-        image: "/images/leads/09-vianna.jpg",
+        classOf: "Class of 2029",
+        image: "/images/leads/2026-27/10-tanisha-chatterjee.webp",
       },
       {
-        name: "Jaiveer Zaveri",
+        name: "Levi Owara",
         role: "JV FTC Lead",
-        classOf: "Class of 2026",
-        image: "/images/leads/10-javieer.png",
+        classOf: "Class of 2027",
       },
     ],
   },
@@ -95,16 +103,14 @@ export const leadGroups: PersonGroup[] = [
     heading: "Community Impact",
     people: [
       {
-        name: "Neal Lawrence",
+        name: "Saketh Giri",
         role: "Director of Measurement",
-        classOf: "Class of 2026",
-        image: "/images/leads/11-neal.jpg",
+        classOf: "Class of 2028",
       },
       {
-        name: "Lakshmi Annavarapu",
+        name: "Aaditri Ramisetty",
         role: "Director of Education Programs",
-        classOf: "Class of 2026",
-        image: "/images/leads/12-lakshmi.jpg",
+        classOf: "Class of 2027",
       },
     ],
   },
@@ -137,13 +143,6 @@ export const mentorGroups: PersonGroup[] = [
     heading: "Non-Robot Mentors",
     people: [
       {
-        name: "Aparna Bhargava",
-        role: "Marketing and Community Impact Mentor",
-        since: "since 2014",
-        bio: "Aparna got her Masters in Computer Science and Engineering from Santa Clara University. She co-founded 3 tech startups. She has mentored FLL teams and is a mentor at FHS Robotics since 2014. She was FHS PTSA president and is a parent of two Firebots alumni.",
-        image: "/images/mentors/03-tbyqqhltv-uku1cdas0-ce61df9553ad-512.png",
-      },
-      {
         name: "Nick Hammes",
         role: "Marketing and Community Impact Mentor",
         since: "since 2022",
@@ -151,11 +150,11 @@ export const mentorGroups: PersonGroup[] = [
         image: "/images/mentors/04-nickmentorpage.jpg",
       },
       {
-        name: "Andrew Kao",
-        role: "Business Mentor",
-        since: "since 2023",
-        bio: "Andrew got his Bachelor's and Master degrees in EECS from MIT. After working through the many booms and busts of the tech industry, he started his own apps company. He has always enjoyed building things and organizations. He now is delighted to be working with the next generation of makers, movers, and entrepreneurs.",
-        image: "/images/mentors/05-cachedimage-png.png",
+        name: "Rhiannon Elliot",
+        role: "Marketing Mentor",
+        since: "since 2025",
+        bio: "Rhiannon has a BS in Human Development & Family Science from CSU Monterey Bay, and Associate Degrees in Child & Adolescent Development and Interdisciplinary Studies. She has been volunteering with FRC since 2019 as a field resetter, scorekeeper, and field supervisor.",
+        image: "/images/mentors/07-rhiannon2.jpg",
       },
       {
         name: "Liam Fay",
@@ -163,13 +162,6 @@ export const mentorGroups: PersonGroup[] = [
         since: "since 2024",
         bio: "Liam Fay is a Stanford graduate student in mechanical engineering. He is an alumnus of 2485 (\u201816-\u201818).",
         image: "/images/mentors/06-liam.jpg",
-      },
-      {
-        name: "Rhiannon Elliot",
-        role: "Community Impact Mentor",
-        since: "since 2025",
-        bio: "Rhiannon has a BS in Human Development & Family Science from CSU Monterey Bay, and Associate Degrees in Child & Adolescent Development and Interdisciplinary Studies. She has been volunteering with FRC since 2019 as a field resetter, scorekeeper, and field supervisor.",
-        image: "/images/mentors/07-rhiannon2.jpg",
       },
     ],
   },
