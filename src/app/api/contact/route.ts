@@ -12,10 +12,6 @@ interface ContactPayload {
 
 const emailLooksValid = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
-/**
- * Validates the contact form. If RESEND_API_KEY is set, emails the team.
- * Otherwise the client opens a mailto: draft so the message still goes through.
- */
 export async function POST(request: Request) {
   let payload: ContactPayload;
 
@@ -25,7 +21,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  // Honeypot: bots fill hidden fields; succeed silently.
   if (payload.website?.trim()) {
     return NextResponse.json({ ok: true, delivered: true });
   }

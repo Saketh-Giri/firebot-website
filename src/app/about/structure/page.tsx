@@ -144,7 +144,7 @@ export default function OrganizationPage() {
               key={value.name}
               className="relative isolate overflow-hidden rounded-3xl border border-white/10 bg-surface p-8 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)] sm:p-12"
             >
-              {/* Opaque base + tinted wash, so stacked cards never show through. */}
+
               <span
                 aria-hidden
                 className={clsx(
@@ -219,7 +219,7 @@ export default function OrganizationPage() {
                   aria-hidden
                   className="animate-drift pointer-events-none absolute top-1/2 left-1/2 -z-10 size-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-ember-600/25 blur-[70px]"
                 />
-                {/* FIRST's wordmark is black; it needs a white field to read. */}
+
                 <div className="rounded-2xl bg-white px-8 py-6 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.8)]">
                   <Image
                     src={structurePhotos.first}

@@ -39,7 +39,6 @@ export const whySponsor = {
   ],
 };
 
-/** Corporate and foundation supporters shown as logos on the live site. */
 export const sponsorLogos: SponsorLogo[] = [
   { name: "Google", image: "/images/home/08-b49d-mv2.png", href: "https://www.google.com" },
   { name: "Apple", image: "/images/home/07-ad14-mv2.png", href: "https://www.apple.com" },
@@ -56,7 +55,6 @@ export const sponsorLogos: SponsorLogo[] = [
   { name: "Igx", image: "/images/sponsor-us/06-igx-logo-bw.jpg" },
 ];
 
-/** Extra names FIRST listed for the 2026 robot that we do not have logos for. */
 export const additionalSeasonPartners = ["ASUS", "Fremont HS Parents", "Fremont High School"];
 
 export const tiers: Tier[] = [
@@ -108,7 +106,6 @@ export const tiers: Tier[] = [
   },
 ];
 
-/** Transcribed from the sponsor benefits table on the live site. */
 export const benefitTiers = ["Iron", "Bronze", "Silver", "Gold", "Platinum", "Diamond"] as const;
 
 export const benefits: { benefit: string; tiers: (typeof benefitTiers)[number][] }[] = [

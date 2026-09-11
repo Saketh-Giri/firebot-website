@@ -7,14 +7,6 @@ import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 export type BlueprintKind = "marble-coaster" | "airplane-launcher" | "cardboard-chords" | "hurricane-housing";
 
-/**
- * Schematic line drawings for the Kindling Kits and Torchbearing Tutors
- * lessons. The kits never had photography, so instead of a stock placeholder
- * each one gets an engineering-sketch cover: thin strokes on a fine grid that
- * draw themselves in when scrolled into view, plus one small SMIL motion per
- * drawing (a marble on the track, a plane on its arc, sound leaving the guitar,
- * wind past the house). Holds still under reduced motion.
- */
 export function KitBlueprint({
   kind,
   index,
@@ -23,14 +15,14 @@ export function KitBlueprint({
   animate = true,
 }: {
   kind: BlueprintKind;
-  /** 1-based sheet number for the corner label. */
+
   index?: number;
   title?: string;
   className?: string;
-  /** Turn off the draw-on and the loops, e.g. for tiny thumbnails. */
+
   animate?: boolean;
 }) {
-  // Hydration-safe: the SMIL loops below are part of the markup.
+
   const reduce = usePrefersReducedMotion();
   const live = animate && !reduce;
   const id = useId().replace(/:/g, "");
@@ -77,8 +69,6 @@ export function KitBlueprint({
   );
 }
 
-/* ------------------------------------------------------------------------ */
-
 const draw: Variants = {
   hidden: { pathLength: 0, opacity: 0 },
   shown: {
@@ -97,14 +87,12 @@ const structure = "rgba(238,241,246,0.82)";
 const guide = "rgba(139,147,163,0.42)";
 const ember = "#f6564f";
 
-/** Circle as a path so `pathLength` draw-on works everywhere. */
 const circlePath = (cx: number, cy: number, r: number) =>
   `M ${cx - r} ${cy} a ${r} ${r} 0 1 0 ${r * 2} 0 a ${r} ${r} 0 1 0 ${-r * 2} 0`;
 
 const roundedRectPath = (x: number, y: number, w: number, h: number, r: number) =>
   `M ${x + r} ${y} H ${x + w - r} a ${r} ${r} 0 0 1 ${r} ${r} V ${y + h - r} a ${r} ${r} 0 0 1 ${-r} ${r} H ${x + r} a ${r} ${r} 0 0 1 ${-r} ${-r} V ${y + r} a ${r} ${r} 0 0 1 ${r} ${-r} Z`;
 
-/** Ruler along the bottom of every sheet so the set reads as one series. */
 function Baseline() {
   const ticks = Array.from({ length: 19 }, (_, i) => 20 + i * 20);
   return (
@@ -131,8 +119,6 @@ function CornerMarks() {
 
 type DrawingProps = { id: string; live: boolean };
 
-/* Marble coaster: a three-hill track on posts, marble rolling the whole run,
-   quick on the drops and slow up the climb. */
 function MarbleCoaster({ id, live }: DrawingProps) {
   const track = "M 22 54 C 70 54 84 168 138 168 C 192 168 196 62 250 62 C 304 62 312 176 378 176";
   const posts: [number, number][] = [
@@ -152,7 +138,7 @@ function MarbleCoaster({ id, live }: DrawingProps) {
       </g>
       <motion.path d={track} stroke={structure} strokeWidth={2.2} variants={draw} />
       <motion.path d={track} stroke={guide} strokeWidth={1} transform="translate(0 6)" variants={draw} />
-      {/* Loading platform at the top of the first drop. */}
+
       <motion.path d="M 12 54 H 30" stroke={structure} strokeWidth={2.6} variants={draw} />
       <path id={`${id}-track`} d={track} stroke="none" />
       <motion.g variants={fade}>
@@ -174,12 +160,10 @@ function MarbleCoaster({ id, live }: DrawingProps) {
   );
 }
 
-/* Airplane launcher: rail on legs, two pegs standing off the rail with a band
-   stretched between them, and the plane riding a dashed arc. */
 function AirplaneLauncher({ id, live }: DrawingProps) {
   const arc = "M 168 122 Q 262 6 388 88";
   const plane = "M 26 0 L -22 -14 L -11 0 L -22 14 Z M 26 0 L -11 0";
-  // Pegs sit on the rail (slope -0.62) and rise perpendicular to it.
+
   const pegA = { foot: [80, 177], top: [72.6, 165.1] } as const;
   const pegB = { foot: [140, 140], top: [132.6, 128.1] } as const;
   return (
@@ -237,14 +221,12 @@ function AirplaneLauncher({ id, live }: DrawingProps) {
   );
 }
 
-/* Cardboard chords: box body, sound hole, neck, four strings. Rings leave the
-   hole while one string hums. */
 function CardboardChords({ live }: DrawingProps) {
   const strings = [122, 130, 138, 146];
   return (
     <>
       <motion.path d={roundedRectPath(52, 72, 192, 124, 16)} stroke={structure} strokeWidth={2} variants={draw} />
-      {/* Corrugation hint along the top edge. */}
+
       <motion.path
         d="M 76 72 v -6 M 96 72 v -6 M 116 72 v -6 M 136 72 v -6 M 156 72 v -6 M 176 72 v -6 M 196 72 v -6 M 216 72 v -6"
         stroke={guide}
@@ -310,7 +292,6 @@ function CardboardChords({ live }: DrawingProps) {
   );
 }
 
-/* Hurricane housing: a braced frame house with wind streamlines. */
 function HurricaneHousing({ live }: DrawingProps) {
   const streams = [
     { y: 70, w: 120, delay: 0 },
@@ -322,7 +303,7 @@ function HurricaneHousing({ live }: DrawingProps) {
     <>
       <motion.path d="M 190 212 V 118 H 330 V 212" stroke={structure} strokeWidth={2.2} variants={draw} />
       <motion.path d="M 176 124 L 260 56 L 344 124" stroke={structure} strokeWidth={2.2} variants={draw} />
-      {/* Cross bracing, the point of the lesson. */}
+
       <motion.path
         d="M 190 212 L 330 118 M 190 118 L 330 212"
         stroke={ember}

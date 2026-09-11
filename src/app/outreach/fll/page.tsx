@@ -59,8 +59,7 @@ export default function FllPage() {
                 delay={0.16 + i * 0.08}
                 className="flex h-full items-center gap-5 rounded-2xl border border-white/8 bg-surface/60 p-4 pr-6 transition-colors duration-500 hover:border-white/15 sm:gap-6"
               >
-                {/* FIRST's marks are black-on-white; a small white tile keeps them
-                    legible without lighting up the whole section. */}
+
                 <span className="grid size-20 shrink-0 place-items-center rounded-xl bg-white p-2 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06)]">
                   <Image
                     src={division.image}

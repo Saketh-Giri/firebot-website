@@ -12,15 +12,10 @@ export interface FlowingMenuItem {
   href: string;
   meta?: string;
   image?: string;
-  /** Short phrase repeated in the sliding band. Defaults to the label. */
+
   tagline?: string;
 }
 
-/**
- * Stacked full-width links; hovering one slides an ember band in from the
- * edge the pointer entered through, carrying a repeating tagline and image,
- * after React Bits' "Flowing Menu".
- */
 export function FlowingMenu({ items, className }: { items: FlowingMenuItem[]; className?: string }) {
   return (
     <nav className={clsx("divide-y divide-white/8 border-y border-white/8", className)}>
@@ -48,8 +43,7 @@ function Row({ item, index }: { item: FlowingMenuItem; index: number }) {
     <Link
       href={item.href}
       onPointerEnter={(e) => {
-        // The band stays parked off-screen for reduced-motion visitors. Gating
-        // the handlers (not the markup) keeps server and client trees identical.
+
         if (reduce || e.pointerType !== "mouse") return;
         setEdge(edgeFor(e));
         setHover(true);

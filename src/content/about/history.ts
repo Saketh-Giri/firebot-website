@@ -27,7 +27,6 @@ export const historyIntro = [
   },
 ];
 
-/** Headline figures for the history page. */
 export const historyFigures = [
   { value: "2010", label: "Founded" },
   { value: "131", label: "Members at the 2018 peak" },

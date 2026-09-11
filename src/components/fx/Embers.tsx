@@ -15,22 +15,15 @@ interface Particle {
   wobble: number;
 }
 
-/**
- * Slow-rising embers on a canvas. Adapted from the React Bits "Particles"
- * background, re-tuned for a shop floor: sparse, warm, drifting upward, with a
- * pre-rendered glow sprite so the whole thing stays cheap. Pauses when the
- * element leaves the viewport or the tab is hidden, and renders nothing when
- * the visitor prefers reduced motion.
- */
 export function Embers({
   className,
   density = 1,
   speed = 1,
 }: {
   className?: string;
-  /** Multiplier on the particle count. 1 ≈ one ember per 14,000 px². */
+
   density?: number;
-  /** Multiplier on rise speed. */
+
   speed?: number;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -51,14 +44,12 @@ export function Embers({
     let visible = true;
     let last = performance.now();
 
-    // Soft radial sprites in a handful of heat colours. Drawing these scaled is
-    // far cheaper than a gradient, filter or shadowBlur per particle per frame.
     const S = 64;
     const palette: [string, string][] = [
-      ["255, 235, 205", "246, 86, 79"], // white-hot core, ember edge
-      ["255, 181, 71", "224, 31, 38"], // amber core, red edge
-      ["255, 141, 131", "184, 18, 26"], // salmon core, deep red edge
-      ["255, 200, 120", "245, 144, 33"], // amber throughout
+      ["255, 235, 205", "246, 86, 79"],
+      ["255, 181, 71", "224, 31, 38"],
+      ["255, 141, 131", "184, 18, 26"],
+      ["255, 200, 120", "245, 144, 33"],
     ];
     const sprites = palette.map(([core, edge]) => {
       const sprite = document.createElement("canvas");
@@ -124,7 +115,6 @@ export function Embers({
         p.x += (p.vx + Math.sin(p.wobble) * 0.008) * dt;
         p.y += p.vy * dt;
 
-        // Fade in over the first 12%, out over the last 35%.
         const t = p.life / p.ttl;
         const alpha = Math.min(t / 0.12, 1) * Math.min((1 - t) / 0.35, 1);
         const flicker = 0.75 + 0.25 * Math.sin(p.wobble * 3.1);

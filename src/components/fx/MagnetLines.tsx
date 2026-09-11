@@ -3,11 +3,6 @@
 import { useEffect, useRef } from "react";
 import { clsx } from "@/lib/clsx";
 
-/**
- * A field of short strokes that all turn to face the pointer, after React
- * Bits' "Magnet Lines". Rotation is written straight to the DOM from a
- * pointer handler, so it never touches React state.
- */
 export function MagnetLines({
   rows = 9,
   columns = 9,
@@ -27,7 +22,6 @@ export function MagnetLines({
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const lines = Array.from(container.querySelectorAll<HTMLSpanElement>("span[data-line]"));
 
-    // Idle: strokes rest at a gentle diagonal, staggered by position.
     lines.forEach((line, i) => {
       const r = Math.floor(i / columns);
       const c = i % columns;
@@ -56,8 +50,6 @@ export function MagnetLines({
       if (!frame) frame = requestAnimationFrame(apply);
     };
 
-    // Track the pointer over the whole window so the field responds as you
-    // approach it, not only once you're inside.
     window.addEventListener("pointermove", onMove, { passive: true });
     return () => {
       window.removeEventListener("pointermove", onMove);

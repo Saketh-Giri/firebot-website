@@ -7,11 +7,6 @@ import { clsx } from "@/lib/clsx";
 
 export type ButtonState = "idle" | "loading" | "success" | "error";
 
-/**
- * Submit button that morphs through loading / success / error, after
- * Aceternity's "Stateful Button". Width is preserved across states so the
- * layout never jumps.
- */
 export function StatefulButton({
   state,
   children,

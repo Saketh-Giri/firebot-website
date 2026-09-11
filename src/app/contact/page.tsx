@@ -35,7 +35,7 @@ export default function ContactPage() {
                 right person.
               </p>
             </div>
-            {/* A field of strokes that all point at the cursor. Decorative. */}
+
             <div className="hidden lg:block">
               <MagnetLines rows={8} columns={14} className="h-56 w-[26rem]" />
             </div>

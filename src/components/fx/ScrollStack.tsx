@@ -5,11 +5,6 @@ import { createRef, useMemo, type ReactNode, type RefObject } from "react";
 import { clsx } from "@/lib/clsx";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
-/**
- * Cards that pin under one another as you scroll, each settling back a little
- * as the next one arrives, after React Bits' "Scroll Stack". Built on native
- * sticky positioning, so without JavaScript it is simply a list of cards.
- */
 export function ScrollStack({
   children,
   className,
@@ -18,9 +13,9 @@ export function ScrollStack({
 }: {
   children: ReactNode[];
   className?: string;
-  /** Distance from the top of the viewport for the first card, in px. */
+
   offset?: number;
-  /** Vertical step between stacked card tops, in px. */
+
   gap?: number;
 }) {
   const count = children.length;
@@ -65,11 +60,10 @@ function StackItem({
   self: RefObject<HTMLDivElement | null>;
   next?: RefObject<HTMLDivElement | null>;
 }) {
-  // Hydration-safe: the flag picks the inline style below.
+
   const reduce = usePrefersReducedMotion();
   const isLast = index === count - 1;
-  // Progress of the *next* card travelling from the bottom of the viewport to
-  // its own sticky position. That's the window in which this card recedes.
+
   const { scrollYProgress } = useScroll({
     target: next ?? self,
     offset: ["start end", `start ${offset + (index + 1) * gap}px`],

@@ -23,11 +23,6 @@ const word: Variants = {
   },
 };
 
-/**
- * Word-by-word headline reveal, after the React Bits "Split Text". Each word
- * lifts and un-blurs in sequence. Screen readers get the full sentence via
- * aria-label while the animated fragments are hidden from them.
- */
 export function SplitText({
   text,
   as: Tag = "span",
@@ -43,7 +38,7 @@ export function SplitText({
   wordClassName?: string;
   stagger?: number;
   delay?: number;
-  /** Animate when scrolled into view instead of on mount. */
+
   inView?: boolean;
 }) {
   const words = text.split(" ");

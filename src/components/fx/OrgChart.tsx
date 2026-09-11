@@ -7,13 +7,6 @@ import { useState } from "react";
 import type { OrgBranch, OrgNode } from "@/content/about/structure";
 import { clsx } from "@/lib/clsx";
 
-/**
- * The organization as a tree. A root pill, a bus that draws itself across
- * to the four branch heads when scrolled into view, and a spine of children
- * under each head. Hovering (or focusing into) a branch lights its connectors
- * ember so you can trace one team from top to bottom. On phones the bus goes
- * away and the branches stack, each keeping its own spine.
- */
 export function OrgChart({
   root,
   branches,
@@ -35,7 +28,7 @@ export function OrgChart({
         if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setActive(null);
       }}
     >
-      {/* Root */}
+
       <div className="flex flex-col items-center">
         <div className="relative isolate overflow-hidden rounded-full border border-white/12 bg-surface px-6 py-3 text-center shadow-card">
           <span
@@ -49,11 +42,10 @@ export function OrgChart({
             </p>
           )}
         </div>
-        {/* Phone: one short drop into the stack. */}
+
         <span aria-hidden className="h-8 w-px bg-white/15 md:hidden" />
       </div>
 
-      {/* Bus (md+): root → every branch head. */}
       <motion.svg
         aria-hidden
         viewBox="0 0 1000 100"
@@ -83,7 +75,7 @@ export function OrgChart({
             style={{ transition: "stroke 0.4s" }}
           />
         ))}
-        {/* Lit segment of the bus from the root to the hovered branch. */}
+
         {active !== null && (
           <motion.path
             key={`lit-${active}`}
@@ -191,7 +183,6 @@ function Branch({
         <div className={headClass}>{head}</div>
       )}
 
-      {/* Spine + children */}
       <ol className="relative mt-2 ml-6 border-l border-white/12 pt-2 pl-5 md:ml-7">
         <span
           aria-hidden
@@ -202,7 +193,7 @@ function Branch({
         />
         {branch.children.map((child, j) => (
           <li key={child.name} className="relative py-1.5">
-            {/* Tick from the spine into the node. */}
+
             <span
               aria-hidden
               className={clsx(

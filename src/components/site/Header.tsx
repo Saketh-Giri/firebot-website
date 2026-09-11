@@ -20,9 +20,7 @@ export function Header() {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
   const closeTimer = useRef<number | null>(null);
-  // Pointer type of the most recent press on a group trigger. Lets a mouse
-  // click keep a hover-opened menu open (instead of toggling it shut) and lets
-  // touch ignore the emulated mouseenter that precedes a tap.
+
   const lastPointer = useRef<string | null>(null);
 
   const { scrollYProgress } = useScroll();
@@ -35,7 +33,6 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Collapse any open menu when the route changes.
   const [renderedPath, setRenderedPath] = useState(pathname);
   if (renderedPath !== pathname) {
     setRenderedPath(pathname);
@@ -54,7 +51,6 @@ export function Header() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // A dropdown opened by click (touch, keyboard) closes on a click elsewhere.
   const navRef = useRef<HTMLElement>(null);
   useEffect(() => {
     if (!openGroup) return;
@@ -83,7 +79,6 @@ export function Header() {
   const groupIsCurrent = (children?: { href: string }[]) =>
     children?.some((child) => isCurrent(child.href)) ?? false;
 
-  /** A short grace period keeps the menu usable when the pointer crosses the gap. */
   const scheduleClose = () => {
     if (closeTimer.current) window.clearTimeout(closeTimer.current);
     closeTimer.current = window.setTimeout(() => setOpenGroup(null), 140);
@@ -171,7 +166,7 @@ export function Header() {
                 }}
                 onMouseLeave={scheduleClose}
                 onBlur={(event) => {
-                  // Keyboard users tabbing out of the group shouldn't leave it open.
+
                   if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
                     setOpenGroup((c) => (c === key ? null : c));
                   }
@@ -292,7 +287,6 @@ export function Header() {
         </div>
       </div>
 
-      {/* Reading progress, drawn along the header's bottom edge once scrolled. */}
       <motion.span
         aria-hidden
         style={{ scaleX: progress }}

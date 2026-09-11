@@ -9,17 +9,10 @@ import type { Person, PersonGroup } from "@/content/about/people";
 import { clsx } from "@/lib/clsx";
 import { useIsClient } from "@/lib/use-is-client";
 
-/**
- * Roster grid with two interactions borrowed from Aceternity: hovering a card
- * pulls focus to it and softens its neighbours ("Focus Cards"), and cards with
- * a bio expand into a centred panel with a shared-layout transition
- * ("Expandable Card").
- */
 export function PeopleRoster({ groups }: { groups: PersonGroup[] }) {
   const [hovered, setHovered] = useState<string | null>(null);
   const [open, setOpen] = useState<Person | null>(null);
-  // The panel is portalled to <body> so it escapes the section's stacking
-  // context and sits above the fixed header.
+
   const portalTarget = useIsClient() ? document.body : null;
   const layoutNs = useId();
   const reduce = useReducedMotion();

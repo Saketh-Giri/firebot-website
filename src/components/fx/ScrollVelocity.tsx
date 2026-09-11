@@ -18,11 +18,6 @@ function wrap(min: number, max: number, v: number) {
   return ((((v - min) % range) + range) % range) + min;
 }
 
-/**
- * Horizontal ticker whose speed and direction respond to how fast the page is
- * scrolling, after the React Bits "Scroll Velocity". Content is repeated
- * enough times to cover the strip and wrapped seamlessly.
- */
 export function ScrollVelocity({
   children,
   baseVelocity = 40,
@@ -30,7 +25,7 @@ export function ScrollVelocity({
   itemClassName,
 }: {
   children: ReactNode;
-  /** Pixels per second at rest. Negative runs right-to-left. */
+
   baseVelocity?: number;
   className?: string;
   itemClassName?: string;

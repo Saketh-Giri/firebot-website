@@ -24,7 +24,7 @@ export const fll = {
       body: "Matches on a 4×8 ft table, while living FIRST Core Values.",
     },
   ],
-  /** The two FIRST LEGO League divisions our teams compete in. */
+
   divisions: [
     {
       name: "FLL Challenge",

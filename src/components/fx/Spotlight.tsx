@@ -4,20 +4,15 @@ import { motion, useMotionTemplate, useMotionValue, useSpring } from "motion/rea
 import { useEffect, useRef } from "react";
 import { clsx } from "@/lib/clsx";
 
-/**
- * A warm radial light that follows the pointer across its parent, in the
- * spirit of Aceternity's "Spotlight". The parent needs `position: relative`.
- * Pointer events are read from the parent so the overlay never blocks links.
- */
 export function Spotlight({
   className,
   size = 520,
   strength = 0.22,
 }: {
   className?: string;
-  /** Diameter of the light in px. */
+
   size?: number;
-  /** Peak alpha of the ember at the centre of the light. */
+
   strength?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);

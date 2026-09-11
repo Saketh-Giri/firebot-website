@@ -4,11 +4,6 @@ import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useSpring,
 import { useRef, type ReactNode } from "react";
 import { clsx } from "@/lib/clsx";
 
-/**
- * Perspective tilt that follows the pointer, with a soft specular highlight,
- * after React Bits' "Tilted Card" and Aceternity's "3D Card". Children are
- * rendered as-is; wrap anything.
- */
 export function TiltCard({
   children,
   className,
@@ -50,8 +45,6 @@ export function TiltCard({
     hover.set(0);
   };
 
-  // `reduce` only gates the pointer handler above: the motion values then sit
-  // at rest, so the markup below is identical on the server and the client.
   return (
     <div className={clsx("min-w-0 [perspective:1100px]", className)}>
       <motion.div

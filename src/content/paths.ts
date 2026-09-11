@@ -1,7 +1,3 @@
-/**
- * Canonical URLs. `src/content/<section>/<page>.ts` maps to `paths.<section>.<page>`.
- * Nested kit pages live under `community.kindlingKits.*`.
- */
 export const paths = {
   home: "/",
   about: {
@@ -67,7 +63,6 @@ export const sitemapPaths: string[] = [
   paths.contact,
 ];
 
-/** Old Wix / first-deploy URLs → nested routes. */
 export const legacyRedirects: { source: string; destination: string }[] = [
   { source: "/history", destination: paths.about.history },
   { source: "/organizational-structure", destination: paths.about.structure },

@@ -147,10 +147,10 @@ export interface KitPage {
   slug: "marble-coaster" | "airplane-launcher" | "cardboard-chords";
   title: string;
   summary: string;
-  /** Single idea the kit teaches; shown as the eyebrow on its card. */
+
   teaches: string;
   blueprint: BlueprintKind;
-  /** Real photography, where it exists. */
+
   photo?: string;
   href: string;
   activities: {

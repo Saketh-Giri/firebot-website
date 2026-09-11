@@ -3,22 +3,15 @@
 import { useEffect, useRef } from "react";
 import { clsx } from "@/lib/clsx";
 
-/**
- * Blueprint dot field that wakes up near the pointer. Adapted from the React
- * Bits "Dot Grid" background: every dot idles at a faint neutral, then grows
- * and warms toward ember as the pointer approaches. A slow ambient wave keeps
- * it from reading as a static texture. Pauses offscreen; static when the
- * visitor prefers reduced motion.
- */
 export function DotGrid({
   className,
   gap = 26,
   radius = 170,
 }: {
   className?: string;
-  /** Distance between dots in px. */
+
   gap?: number;
-  /** Pointer influence radius in px. */
+
   radius?: number;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -53,7 +46,7 @@ export function DotGrid({
 
     const draw = (now: number) => {
       ctx.clearRect(0, 0, width, height);
-      // Ease the pointer so the glow trails a touch behind the cursor.
+
       pointer.x += (pointer.tx - pointer.x) * 0.16;
       pointer.y += (pointer.ty - pointer.y) * 0.16;
 
@@ -69,13 +62,13 @@ export function DotGrid({
           const dx = x - pointer.x;
           const dy = y - pointer.y;
           const d2 = dx * dx + dy * dy;
-          // 0 far away → 1 under the pointer, eased.
+
           const near = d2 < r2 ? (1 - Math.sqrt(d2) / radius) ** 2 : 0;
           const wave = reduced ? 0 : 0.5 + 0.5 * Math.sin(t + i * 0.35 + j * 0.22);
 
           const size = 1 + wave * 0.35 + near * 1.9;
           const alpha = 0.16 + wave * 0.1 + near * 0.8;
-          // Neutral line colour (#333846) warming to ember-400 (#f6564f).
+
           const red = 51 + near * (246 - 51);
           const green = 56 + near * (86 - 56);
           const blue = 70 + near * (79 - 70);

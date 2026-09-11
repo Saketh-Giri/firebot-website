@@ -11,12 +11,6 @@ export interface StickyScrollItem {
   visual: ReactNode;
 }
 
-/**
- * Two-column scroll narrative, after Aceternity's "Sticky Scroll Reveal".
- * The text column scrolls; the visual column stays pinned and crossfades to
- * whichever item is nearest the middle of the viewport. Collapses to a
- * single column with inline visuals on small screens.
- */
 export function StickyScroll({ items, className }: { items: StickyScrollItem[]; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
@@ -26,9 +20,7 @@ export function StickyScroll({ items, className }: { items: StickyScrollItem[]; 
   });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    // Items share the column equally, so the one under the viewport's middle
-    // is whichever centre `latest` is nearest to. Using centres (not starts)
-    // means the visual switches at item boundaries rather than halfway through.
+
     const count = items.length;
     const centers = items.map((_, i) => (i + 0.5) / count);
     const closest = centers.reduce((acc, c, i) => {
@@ -61,7 +53,6 @@ export function StickyScroll({ items, className }: { items: StickyScrollItem[]; 
               <p className="mt-5 max-w-lg text-lg leading-relaxed text-muted">{item.description}</p>
             </motion.div>
 
-            {/* Mobile: heading + inline visual. */}
             <div className="lg:hidden">
               <p className="font-mono text-xs tracking-[0.18em] text-ember-400 uppercase">
                 {String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}

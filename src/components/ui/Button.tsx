@@ -9,7 +9,6 @@ type Size = "sm" | "md" | "lg";
 const base =
   "group relative isolate inline-flex items-center justify-center gap-2 overflow-hidden rounded-full font-semibold transition duration-300 ease-out-expo disabled:pointer-events-none disabled:opacity-50";
 
-/** Light sweep that crosses the button once on hover. */
 const sheen =
   "before:pointer-events-none before:absolute before:inset-y-0 before:-left-full before:w-1/2 before:-skew-x-12 before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:transition-transform before:duration-700 before:ease-out-expo hover:before:translate-x-[420%]";
 

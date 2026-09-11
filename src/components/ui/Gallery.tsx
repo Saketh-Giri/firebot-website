@@ -25,7 +25,7 @@ import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 export interface GalleryItem {
   title: string;
   image: string;
-  /** Intrinsic size, used to lay the masonry out without layout shift. */
+
   width?: number;
   height?: number;
 }
@@ -54,10 +54,6 @@ function useColumnCount(max: 2 | 3 | 4) {
   );
 }
 
-/**
- * Masonry photo grid with per-column parallax (after Aceternity's "Parallax
- * Scroll"), direction-aware hover captions and a keyboard-navigable lightbox.
- */
 export function Gallery({
   items,
   columns = 3,
@@ -76,7 +72,6 @@ export function Gallery({
     offset: ["start end", "end start"],
   });
 
-  // Distribute items to the currently shortest column (by aspect height).
   const cols = useMemo(() => {
     const heights = Array.from({ length: count }, () => 0);
     const buckets: { item: GalleryItem; index: number }[][] = Array.from(
@@ -94,8 +89,6 @@ export function Gallery({
     return buckets;
   }, [items, count]);
 
-  // Lightbox is portalled to <body> so it escapes the section's stacking
-  // context and covers the fixed header.
   const portalTarget = useIsClient() ? document.body : null;
 
   const close = useCallback(() => setActive(null), []);
@@ -261,7 +254,7 @@ function entryDirection(event: React.PointerEvent<HTMLElement>): Dir {
   const rect = event.currentTarget.getBoundingClientRect();
   const x = (event.clientX - rect.left) / rect.width - 0.5;
   const y = (event.clientY - rect.top) / rect.height - 0.5;
-  // Normalise to a square so short/wide tiles bias correctly.
+
   const ax = Math.abs(x);
   const ay = Math.abs(y);
   if (ax > ay) return x > 0 ? "right" : "left";

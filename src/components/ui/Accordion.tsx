@@ -16,7 +16,7 @@ export function Accordion({
   className,
 }: {
   items: AccordionItem[];
-  /** Index of the row expanded on first render. */
+
   defaultOpen?: number;
   className?: string;
 }) {

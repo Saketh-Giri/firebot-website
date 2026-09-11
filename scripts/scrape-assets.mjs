@@ -1,14 +1,3 @@
-/**
- * Downloads image assets from the live fremontrobotics.com Wix site.
- *
- * Wix serves images under opaque hashed ids, but its transform URLs keep the
- * original upload filename as the last path segment. We use that name, plus the
- * order the images appear in the document, to save readable files under
- * public/images/<page>/<NN>-<name>.<ext> and record them in assets.json. Content
- * modules then reference images by that ordered manifest.
- *
- * Usage: node scripts/scrape-assets.mjs
- */
 import { mkdir, writeFile, rm } from "node:fs/promises";
 import path from "node:path";
 
@@ -17,7 +6,7 @@ const OUT_DIR = path.join(process.cwd(), "public", "images");
 const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
 const CONCURRENCY = 5;
-/** Above this, refetch through a Wix resize instead of shipping the original. */
+
 const MAX_BYTES = 2_500_000;
 
 const PAGES = [
@@ -45,7 +34,6 @@ const PAGES = [
   "/join-the-team",
 ];
 
-/** Site chrome that appears on every page; stored once under shared/. */
 const SHARED = new Map([
   ["2b10e4_6b1700bd158e4689abfedd5ea4a78646~mv2.png", "logo"],
   ["2b10e4_23bdfbd810eb4501a1122b1327e99778~mv2.png", "firebot-icon"],
@@ -67,12 +55,8 @@ function slugify(name) {
     .slice(0, 48);
 }
 
-/**
- * Collects images in document order. Transform URLs (which carry the original
- * filename) are preferred; bare media URLs are picked up as a fallback.
- */
 function extractMedia(html) {
-  const found = new Map(); // file -> { file, ext, name, position }
+  const found = new Map();
 
   const withName = new RegExp(
     `media/${MEDIA_ID}\\.${EXT}/v1/[^"'\\s]*?/([^"'\\s/]+\\.${EXT})`,
@@ -89,7 +73,7 @@ function extractMedia(html) {
       const file = `${m[1]}.${m[2].toLowerCase()}`;
       if (found.has(file)) continue;
       const rawName = hasName ? decodeURIComponent(m[3]) : file;
-      // A name identical to the hash tells us nothing, so fall back to the id.
+
       const name = rawName.startsWith(m[1]) ? m[1].slice(-8) : rawName;
       found.set(file, { file, ext: m[2].toLowerCase(), name, position: m.index });
     }
@@ -131,7 +115,7 @@ async function main() {
   await mkdir(path.join(OUT_DIR, "shared"), { recursive: true });
 
   const manifest = {};
-  const cache = new Map(); // media file -> localPath
+  const cache = new Map();
   let downloaded = 0;
   let resized = 0;
   let failed = 0;
@@ -173,7 +157,7 @@ async function main() {
             buf = await fetchBuffer(`${remote}/v1/fit/w_2000,h_2000,q_88,enc_auto/${file}`);
             resized++;
           } catch {
-            /* keep the original if the resize is unavailable */
+
           }
         }
         await writeFile(dest, buf);

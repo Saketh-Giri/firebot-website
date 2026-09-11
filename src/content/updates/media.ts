@@ -10,7 +10,6 @@ export interface Newsletter {
   cover: string;
 }
 
-/** Album covers in the order they appear on the live team gallery. */
 export const albums: Album[] = [
   { title: "2022 - 2023 Outreach", image: "/images/team-gallery/01-img-5545-jpg.jpg" },
   {

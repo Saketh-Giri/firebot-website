@@ -12,7 +12,7 @@ export interface OrgNode {
 }
 
 export interface OrgBranch extends OrgNode {
-  /** Two-to-four letter badge, e.g. "FRC". */
+
   badge: string;
   children: OrgNode[];
 }
@@ -20,7 +20,6 @@ export interface OrgBranch extends OrgNode {
 export const orgIntro =
   "Student-led by design. Mentors advise; students run the shop, the teams, and the outreach.";
 
-/** The org chart: one organization, four branches, students all the way down. */
 export const orgChart: { root: OrgNode; branches: OrgBranch[] } = {
   root: { name: "Fremont High Robotics", detail: "Student leads · Mentors advise" },
   branches: [

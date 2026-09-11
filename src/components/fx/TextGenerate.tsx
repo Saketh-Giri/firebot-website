@@ -13,12 +13,6 @@ const word: Variants = {
   visible: { opacity: 1, filter: "blur(0px)", transition: { duration: 0.6, ease: "easeOut" } },
 };
 
-/**
- * Sentence that resolves word by word as it scrolls into view, after
- * Aceternity's "Text Generate Effect". Words start dim and blurred rather than
- * invisible so the block still reads as a paragraph before the animation runs.
- * Words wrapped in *asterisks* are rendered in the ember colour.
- */
 export function TextGenerate({
   text,
   className,

@@ -10,11 +10,6 @@ export interface TimelineEntry {
   content: ReactNode;
 }
 
-/**
- * Vertical timeline with a scroll-linked ember beam, after Aceternity's
- * "Timeline" and "Tracing Beam". Labels stick to the viewport while their
- * content scrolls past; the beam fills the spine as you read down.
- */
 export function Timeline({ entries, className }: { entries: TimelineEntry[]; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
@@ -78,7 +73,6 @@ export function Timeline({ entries, className }: { entries: TimelineEntry[]; cla
         </div>
       ))}
 
-      {/* Spine + beam. Sits at the dot centre (size-9 → 18px). */}
       <div
         aria-hidden
         style={{ height }}

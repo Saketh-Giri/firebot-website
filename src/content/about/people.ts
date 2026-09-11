@@ -15,10 +15,6 @@ export interface PersonGroup {
 export const leadsIntro =
   "Student leadership for the 2026–27 season. Leads run the shop, the teams, and the outreach; mentors advise.";
 
-/**
- * Roster matches fremontrobotics.com/leads. Photos live under
- * public/images/leads/2026-27. Leads without a photo yet fall back to initials.
- */
 export const leadGroups: PersonGroup[] = [
   {
     heading: "Executive",

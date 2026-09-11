@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand palette, warmed up from the live fremontrobotics.com red. */
+
   --color-ember-50: #fff1f0;
   --color-ember-100: #ffe0dd;
   --color-ember-200: #ffc0ba;
@@ -13,11 +13,9 @@
   --color-ember-800: #62090e;
   --color-ember-900: #430508;
 
-  /* Secondary accent, used sparingly so the red keeps its weight. */
   --color-flare-400: #ffb547;
   --color-flare-500: #f59021;
 
-  /* Neutral ramp. Cool near-black with a hint of blue so red reads warm. */
   --color-ink: #08090c;
   --color-ink-2: #0c0e12;
   --color-surface: #111318;
@@ -47,7 +45,6 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
 
-  /* Heat glow, the core lighting motif for interactive surfaces. */
   --shadow-glow: 0 0 0 1px --alpha(var(--color-ember-500) / 25%),
     0 18px 50px -14px --alpha(var(--color-ember-600) / 45%);
   --shadow-lift: 0 24px 60px -22px rgb(0 0 0 / 0.85);
@@ -60,7 +57,7 @@
 
 html {
   scroll-behavior: smooth;
-  /* Keeps in-page anchors clear of the fixed header. */
+
   scroll-padding-top: 6.5rem;
   background-color: var(--color-ink);
 }
@@ -72,8 +69,6 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Film grain over the whole page. Kills banding in the large gradients and
-   gives the flat dark surfaces something to catch the light on. */
 body::before {
   content: "";
   position: fixed;
@@ -115,7 +110,6 @@ body::before {
     border-radius: 3px;
   }
 
-  /* Tabular figures everywhere numbers are compared in a column. */
   .font-mono {
     font-variant-numeric: tabular-nums;
   }
@@ -136,8 +130,6 @@ body::before {
   }
 }
 
-/* Thin rule used in place of the original site's heavy dividers. The red only
-   catches the first stretch so it reads as an accent, not an underline. */
 @utility hairline {
   background-image: linear-gradient(
     to right,
@@ -149,7 +141,6 @@ body::before {
   height: 1px;
 }
 
-/* Symmetric variant for edges that sit under centred content. */
 @utility hairline-center {
   background-image: linear-gradient(
     to right,
@@ -168,7 +159,6 @@ body::before {
   text-wrap: pretty;
 }
 
-/* Warm gradient fill for display numerals and accent words. */
 @utility text-gradient-ember {
   background-image: linear-gradient(
     100deg,
@@ -190,7 +180,6 @@ body::before {
   color: transparent;
 }
 
-/* Blueprint grid. Sits behind hero sections at low opacity. */
 @utility bg-grid {
   background-image:
     linear-gradient(to right, --alpha(var(--color-line-2) / 55%) 1px, transparent 1px),
@@ -203,7 +192,6 @@ body::before {
   background-size: 22px 22px;
 }
 
-/* Panel surface shared by cards, form fields and callouts. */
 @utility surface-panel {
   background-image: linear-gradient(
     to bottom,
@@ -230,15 +218,10 @@ body::before {
   mask-image: linear-gradient(to top, #000 55%, transparent);
 }
 
-/* Soft vignette so canvas backgrounds never end on a hard edge. */
 @utility mask-vignette {
   mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, #000 40%, transparent 100%);
 }
 
-/*
- * Pointer-tracked glow. A client component writes --mx / --my (in px) onto the
- * element; these layers read them. Falls back to a centred, invisible glow.
- */
 @utility glow-surface {
   --mx: 50%;
   --my: 50%;
@@ -261,7 +244,6 @@ body::before {
   );
 }
 
-/* Border that lights up only near the pointer. */
 @utility glow-border {
   pointer-events: none;
   position: absolute;
@@ -282,13 +264,11 @@ body::before {
   mask-composite: exclude;
 }
 
-/* Outline-only type for the giant footer wordmark and section numerals. */
 @utility text-outline {
   -webkit-text-stroke: 1px --alpha(#fff / 18%);
   color: transparent;
 }
 
-/* Hides the scrollbar on horizontally scrolled strips. */
 @utility scrollbar-none {
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -316,7 +296,6 @@ body::before {
   }
 }
 
-/* Slow drift for the hero light blooms. */
 @keyframes drift {
   0%,
   100% {
@@ -354,7 +333,6 @@ body::before {
   }
 }
 
-/* Light sweep across text; used on the mono eyebrow labels. */
 @keyframes shimmer {
   from {
     background-position: 200% center;
@@ -364,7 +342,6 @@ body::before {
   }
 }
 
-/* Slow, irregular flicker for the live status dot, like a pilot light. */
 @keyframes flicker {
   0%,
   100% {
@@ -427,7 +404,6 @@ body::before {
   animation: marquee 78s linear infinite;
 }
 
-/* Band inside the flowing menu; must keep running while its row is hovered. */
 .animate-marquee-band {
   animation: marquee 14s linear infinite;
 }

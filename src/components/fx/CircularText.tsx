@@ -1,11 +1,6 @@
 import { useId } from "react";
 import { clsx } from "@/lib/clsx";
 
-/**
- * Text set on a slowly turning circle, after the React Bits "Circular Text".
- * Pure SVG + CSS animation, so it renders on the server and costs nothing on
- * the main thread. Wraps around a logo in the hero.
- */
 export function CircularText({
   text,
   className,

@@ -68,7 +68,7 @@ export function ContactForm() {
   const update = (key: keyof Fields) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFields((current) => ({ ...current, [key]: event.target.value }));
     if (errors[key]) setErrors((current) => ({ ...current, [key]: undefined }));
-    // Typing again after a result arms the button for another send.
+
     if (status !== "idle" && status !== "sending") setStatus("idle");
   };
 

@@ -11,10 +11,6 @@ export interface StepperStep {
   content: ReactNode;
 }
 
-/**
- * Click-through steps with an animated progress rail, after React Bits'
- * "Stepper". Indicators are buttons, so any step is reachable directly.
- */
 export function Stepper({ steps, className }: { steps: StepperStep[]; className?: string }) {
   const [index, setIndex] = useState(0);
   const [dir, setDir] = useState<1 | -1>(1);
@@ -27,7 +23,7 @@ export function Stepper({ steps, className }: { steps: StepperStep[]; className?
 
   return (
     <div className={clsx("overflow-hidden rounded-3xl border border-white/8 bg-surface shadow-card", className)}>
-      {/* Rail */}
+
       <div className="border-b border-white/8 px-5 py-5 sm:px-8">
         <ol className="flex items-center">
           {steps.map((step, i) => {
@@ -75,7 +71,6 @@ export function Stepper({ steps, className }: { steps: StepperStep[]; className?
         </ol>
       </div>
 
-      {/* Panel */}
       <div className="relative min-h-[18rem] overflow-hidden px-5 py-8 sm:px-8 sm:py-10">
         <AnimatePresence mode="wait" initial={false} custom={dir}>
           <motion.div
@@ -104,7 +99,6 @@ export function Stepper({ steps, className }: { steps: StepperStep[]; className?
         </AnimatePresence>
       </div>
 
-      {/* Controls */}
       <div className="flex items-center justify-between gap-4 border-t border-white/8 px-5 py-4 sm:px-8">
         <button
           type="button"

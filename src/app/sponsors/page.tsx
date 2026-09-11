@@ -27,7 +27,6 @@ export const metadata: Metadata = {
     "Fremont High Robotics is a 501(c)(3) non-profit. Sponsorship covers tools, safety equipment, robot materials, and outreach programs.",
 };
 
-/** Metal colours so the levels read as a hierarchy at a glance. */
 const tierMetal: Record<string, string> = {
   Diamond: "#9fdff5",
   Platinum: "#dfe4ec",

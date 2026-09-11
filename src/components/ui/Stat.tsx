@@ -4,10 +4,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "motion/react";
 import { clsx } from "@/lib/clsx";
 
-/**
- * Counts up the leading number of a stat while preserving whatever wraps it,
- * so values like "50,600+", "80%" and "5:2" all render correctly.
- */
 function useCountUp(value: string, active: boolean, skip: boolean) {
   const parsed = useMemo(() => {
     const match = value.match(/^([^\d]*)([\d,]+)(.*)$/);
@@ -19,8 +15,6 @@ function useCountUp(value: string, active: boolean, skip: boolean) {
     };
   }, [value]);
 
-  // Starts as null so the server and the first client render both emit the real
-  // value; the count-up only takes over once the element scrolls into view.
   const [display, setDisplay] = useState<string | null>(null);
 
   useEffect(() => {
@@ -33,7 +27,7 @@ function useCountUp(value: string, active: boolean, skip: boolean) {
 
     const tick = (now: number) => {
       const progress = Math.min((now - start) / duration, 1);
-      // Ease-out quart keeps the last digits from crawling.
+
       const eased = 1 - (1 - progress) ** 4;
       const current = Math.round(target * eased);
       setDisplay(`${prefix}${current.toLocaleString("en-US")}${suffix}`);
@@ -55,9 +49,9 @@ export function Stat({
 }: {
   value: string;
   label: string;
-  /** `sm` is for word values ("Year-round") that would not fit at display size. */
+
   size?: "sm" | "md" | "lg";
-  /** Drop the top hairline; for use inside a card that already has edges. */
+
   bare?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);

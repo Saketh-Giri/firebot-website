@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function TeamGalleryPage() {
-  // Intrinsic sizes let the masonry lay out without any layout shift.
+
   const items = albums.map((album) => ({ ...album, ...(imageSize(album.image) ?? {}) }));
 
   return (

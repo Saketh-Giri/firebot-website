@@ -1,9 +1,5 @@
 import { paths } from "./paths";
 
-/**
- * One file to update each August / kickoff / championship.
- * Competition records are from FIRST Events and The Blue Alliance (retrieved 16 Aug 2026).
- */
 export const season = {
   label: "2026–27",
   priorLabel: "2025–26",
@@ -39,7 +35,7 @@ export const season = {
     image: "/images/home/06-ee0b-mv2.jpg",
   },
   calendar: {
-    /** Wix never exposed a public calendar ID we could reuse. */
+
     embedSrc: null as string | null,
     intro: "Shop hours and outreach dates live on the team calendar. Until we embed it here, these are the public dates.",
     events: [

@@ -16,12 +16,6 @@ interface Spark {
 
 const COLORS = ["#ffb547", "#ff8d83", "#f6564f", "#ffe0dd", "#f59021"];
 
-/**
- * Welding sparks on click. Based on the React Bits "Click Spark", drawn as
- * short streaks that arc under a little gravity instead of straight lines. The
- * canvas is fixed and pointer-transparent, and the animation loop only runs
- * while sparks are alive, so idle cost is zero.
- */
 export function ClickSpark() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -78,7 +72,7 @@ export function ClickSpark() {
     };
 
     const onDown = (event: PointerEvent) => {
-      // Skip right-clicks and anything inside form fields.
+
       if (event.button !== 0) return;
       const target = event.target as HTMLElement | null;
       if (target?.closest("input, textarea, select, [contenteditable]")) return;

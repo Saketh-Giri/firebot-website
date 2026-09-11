@@ -14,12 +14,6 @@ export interface Panel {
   image: string;
 }
 
-/**
- * A row of photo panels where the active one widens to reveal its copy. The
- * width change rides on an animated `flex-grow`, so it's a single composited
- * property and stays smooth on mid-range laptops. Stacks vertically on small
- * screens with every panel open.
- */
 export function ExpandingPanels({ panels, className }: { panels: Panel[]; className?: string }) {
   const [active, setActive] = useState(0);
 
@@ -63,7 +57,6 @@ export function ExpandingPanels({ panels, className }: { panels: Panel[]; classN
               )}
             />
 
-            {/* Collapsed: index + rotated title along the bottom edge. */}
             <span
               className={clsx(
                 "absolute inset-x-0 bottom-0 hidden flex-col items-center gap-4 pb-7 transition-opacity duration-500 md:flex",
@@ -78,7 +71,6 @@ export function ExpandingPanels({ panels, className }: { panels: Panel[]; classN
               </span>
             </span>
 
-            {/* Expanded copy. */}
             <span
               className={clsx(
                 "relative z-10 flex flex-col p-6 transition duration-500 ease-out-expo md:p-8",

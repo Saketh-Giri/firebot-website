@@ -28,7 +28,6 @@ import { clsx } from "@/lib/clsx";
 
 const heroImage = "/images/home/01-0b69-mv2.jpg";
 
-/** Headlines for the ticker under the hero. Update alongside `season.ts`. */
 const ticker = [
   `${season.game.year} ${season.game.name}`,
   "FIRST Championship · Galileo",
@@ -41,7 +40,6 @@ const ticker = [
   "Est. 2010 · Sunnyvale",
 ];
 
-/** Bento layout for the numbers. Labels index into `stats` by their label. */
 const bento: { label: string; span?: "wide" | "tall" | "big" }[] = [
   { label: "community members reached", span: "big" },
   { label: "competition teams" },
@@ -59,7 +57,7 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ---------------------------------------------------------------- Hero */}
+
       <section className="relative isolate flex h-svh min-h-[40rem] flex-col justify-end overflow-hidden">
         <Image
           src={heroImage}
@@ -150,7 +148,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ---------------------------------------------------------------- Ticker */}
       <div className="border-y border-white/8 bg-ink-2/80 py-4">
         <ScrollVelocity baseVelocity={-38}>
           {ticker.map((item) => (
@@ -164,7 +161,6 @@ export default function HomePage() {
         </ScrollVelocity>
       </div>
 
-      {/* ---------------------------------------------------------------- Mission */}
       <section id="mission" className="relative isolate scroll-mt-20 overflow-hidden py-28 md:py-40">
         <DotGrid className="mask-vignette -z-10" gap={28} radius={190} />
         <div
@@ -182,7 +178,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ---------------------------------------------------------------- Numbers */}
       <Section eyebrow="At a glance" heading="By the numbers" tone="surface">
         <div className="grid auto-rows-[minmax(9rem,auto)] grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {bento.map((cell, i) => {
@@ -227,7 +222,6 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* ---------------------------------------------------------------- Programs */}
       <Section
         eyebrow="Programs"
         heading="What we run"
@@ -244,7 +238,6 @@ export default function HomePage() {
         />
       </Section>
 
-      {/* ---------------------------------------------------------------- Season recap */}
       <Section tone="surface">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-16">
           <Reveal>
@@ -304,7 +297,6 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* ---------------------------------------------------------------- Photo wall */}
       <section className="relative isolate overflow-hidden py-32 md:py-44">
         <Marquee3D images={wall} columns={6} className="absolute inset-0 -z-20 opacity-80" />
         <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-ink via-ink/30 to-ink" />
@@ -327,7 +319,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ---------------------------------------------------------------- Sponsors */}
       <Section eyebrow="Support" heading="Sponsors power the shop" tone="surface">
         <div className="mask-fade-x relative -mx-4 overflow-hidden sm:-mx-6">
           <LogoRow logos={sponsorLogos} />
@@ -343,7 +334,6 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* ---------------------------------------------------------------- Tryouts */}
       <Section>
         <Glow className="relative isolate grid overflow-hidden rounded-3xl border border-white/10 bg-surface lg:grid-cols-2">
           <div className="relative min-h-72">

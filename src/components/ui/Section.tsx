@@ -8,10 +8,10 @@ interface SectionProps {
   lede?: ReactNode;
   children?: ReactNode;
   className?: string;
-  /** Constrains the heading block so long prose stays readable. */
+
   narrow?: boolean;
   align?: "start" | "center";
-  /** `surface` lifts the band off the page, `glow` adds an ember bloom behind it. */
+
   tone?: "default" | "surface" | "glow";
 }
 

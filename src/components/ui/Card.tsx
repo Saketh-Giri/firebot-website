@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { clsx } from "@/lib/clsx";
 
-/** Ember bloom that fades in from the top edge on hover. */
 const spotlight =
   "after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:opacity-0 after:transition-opacity after:duration-500 after:bg-[radial-gradient(85%_60%_at_50%_0%,rgba(224,31,38,0.16),transparent_70%)]";
 
@@ -78,7 +77,7 @@ export function LinkCard({
   title: string;
   description?: string;
   image?: string;
-  /** Custom artwork in place of `image`; rendered in the same 16:10 slot. */
+
   media?: ReactNode;
   className?: string;
 }) {

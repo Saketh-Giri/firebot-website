@@ -56,7 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        {/* Scroll reveals ship with an inline opacity:0; without JS they must still show. */}
+
         <noscript>
           <style
             dangerouslySetInnerHTML={{

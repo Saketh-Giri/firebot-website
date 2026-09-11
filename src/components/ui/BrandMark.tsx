@@ -24,9 +24,6 @@ const sizes: Record<Size, { mark: string; name: string; meta: string; gap: strin
   },
 };
 
-/**
- * Hero-level brand lockup. Firebots is the signal; the org name sits under it.
- */
 export function BrandMark({
   size = "lg",
   className,

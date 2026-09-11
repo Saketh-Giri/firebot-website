@@ -9,12 +9,6 @@ export interface MarqueeImage {
   alt: string;
 }
 
-/**
- * A tilted wall of photographs whose columns drift in alternating directions,
- * after Aceternity's "3D Marquee". The plane is rotated without perspective
- * (an isometric look) so it never blows up near the camera. Decorative:
- * images are empty-alt and the wall sits behind real content.
- */
 export function Marquee3D({
   images,
   className,
@@ -24,7 +18,7 @@ export function Marquee3D({
   images: MarqueeImage[];
   className?: string;
   columns?: 3 | 4 | 5 | 6;
-  /** Seconds for one full loop of a column. */
+
   duration?: number;
 }) {
   const reduce = useReducedMotion();
@@ -33,7 +27,6 @@ export function Marquee3D({
     images.slice(c * perColumn, (c + 1) * perColumn),
   ).filter((c) => c.length > 0);
 
-  // Callers position this (absolute/relative) and give it a size.
   return (
     <div aria-hidden className={clsx("overflow-hidden", className)}>
       <div className="absolute inset-0 flex items-center justify-center">
@@ -47,7 +40,7 @@ export function Marquee3D({
           >
             {cols.map((col, c) => {
               const up = c % 2 === 0;
-              // Two copies per column so the loop is seamless.
+
               const doubled = [...col, ...col];
               return (
                 <motion.div

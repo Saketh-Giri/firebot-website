@@ -34,8 +34,7 @@ import { paths } from "@/content/paths";
 import { clsx } from "@/lib/clsx";
 
 export function ProgramPage({ program }: { program: Program }) {
-  // Numbers ("39", "3v3", "~12") sit three-up at display size even on phones;
-  // word values ("Year-round") need a smaller face and a stacked phone layout.
+
   const wordy = program.highlights?.some((item) => !/^\D{0,2}\d/.test(item.value)) ?? false;
 
   return (
@@ -226,11 +225,6 @@ export function ProgramPage({ program }: { program: Program }) {
   );
 }
 
-/**
- * Pinned visual for a subteam: a logo plate when the subteam has one,
- * otherwise a typographic slab. Both sit on a machined-looking panel with a
- * few embers drifting up so the switch between items has something to show.
- */
 function SubteamVisual({ subteam, index, program }: { subteam: Subteam; index: number; program: Program }) {
   const palette = [
     "from-ember-900/60 via-surface to-ink-2",
@@ -263,8 +257,7 @@ function SubteamVisual({ subteam, index, program }: { subteam: Subteam; index: n
             />
           )}
         </div>
-        {/* On small screens the heading sits directly above this card, so the
-            name only repeats on desktop where the visual is pinned separately. */}
+
         <p className="mt-7 hidden text-center text-2xl font-semibold tracking-tight text-white/90 sm:text-3xl lg:block">
           {subteam.name}
         </p>
@@ -276,7 +269,6 @@ function SubteamVisual({ subteam, index, program }: { subteam: Subteam; index: n
   );
 }
 
-/** Line icon for a subteam, picked by keyword so new subteams still get one. */
 function SubteamIcon({ name, ...props }: { name: string } & ComponentProps<typeof Cog>) {
   const n = name.toLowerCase();
   const Icon = n.includes("design")

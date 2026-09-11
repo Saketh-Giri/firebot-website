@@ -4,12 +4,6 @@ import { motion } from "motion/react";
 import { useEffect, useId, useRef, useState } from "react";
 import { clsx } from "@/lib/clsx";
 
-/**
- * Outlined display text that fills with ember light under the pointer, after
- * Aceternity's "Text Hover Effect". Two copies of the same SVG text: a faint
- * outline underneath and a gradient-filled copy on top, masked by a radial
- * gradient that follows the cursor and expands on hover.
- */
 export function TextHover({
   text,
   className,
@@ -74,7 +68,6 @@ export function TextHover({
         </mask>
       </defs>
 
-      {/* Base outline, always visible. */}
       <text
         x="50%"
         y="50%"
@@ -86,7 +79,6 @@ export function TextHover({
         {text}
       </text>
 
-      {/* Outline that draws itself on first view. */}
       <motion.text
         x="50%"
         y="50%"
@@ -102,7 +94,6 @@ export function TextHover({
         {text}
       </motion.text>
 
-      {/* Gradient fill, revealed by the pointer mask. */}
       <text
         x="50%"
         y="50%"

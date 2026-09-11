@@ -4,11 +4,6 @@ import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/reac
 import { useRef, type ReactNode } from "react";
 import { clsx } from "@/lib/clsx";
 
-/**
- * Pulls its child a few pixels toward the pointer, after the React Bits
- * "Magnet". Kept deliberately mild so buttons feel weighted, not gimmicky.
- * Disabled for coarse pointers and reduced-motion visitors.
- */
 export function Magnetic({
   children,
   className,
@@ -17,9 +12,9 @@ export function Magnetic({
 }: {
   children: ReactNode;
   className?: string;
-  /** Fraction of the pointer offset the child follows. */
+
   strength?: number;
-  /** Extra hit area in px around the child that still attracts it. */
+
   range?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);

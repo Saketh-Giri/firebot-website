@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { clsx } from "@/lib/clsx";
 
 export interface RoadmapStage {
-  /** Short marker, e.g. "Year 1". */
+
   label: string;
   title: string;
   goals: string[];
@@ -13,12 +13,6 @@ export interface RoadmapStage {
 
 const AMP = 34;
 
-/**
- * Multi-year plan drawn as a road. On wide screens the stages sit on a wavy
- * two-lane road (a nod to the team's original roadmap graphic); an ember line
- * paints along it as you scroll and each stage lights up when the line
- * reaches it. On small screens the same data stacks into a vertical spine.
- */
 export function Roadmap({ stages, className }: { stages: RoadmapStage[]; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 82%", "end 58%"] });
@@ -30,8 +24,7 @@ export function Roadmap({ stages, className }: { stages: RoadmapStage[]; classNa
 
   return (
     <div ref={ref} className={clsx("relative grid md:auto-cols-fr md:grid-flow-col", className)}>
-      {/* Horizontal road (md+). Stretched to the full grid width so the
-          stage centres line up with the columns below. */}
+
       <svg
         aria-hidden
         viewBox="0 0 1000 100"
@@ -54,7 +47,6 @@ export function Roadmap({ stages, className }: { stages: RoadmapStage[]; classNa
         <motion.path d={road} stroke="#f6564f" strokeWidth={2.6} style={{ pathLength: progress }} />
       </svg>
 
-      {/* Vertical spine (mobile). */}
       <span
         aria-hidden
         className="absolute top-3 bottom-3 left-[7.5px] w-px border-l border-dashed border-white/15 md:hidden"
@@ -120,7 +112,6 @@ function Stage({
   );
 }
 
-/** Sine-like road through every stage centre at y=50, alternating humps. */
 function buildRoad(centers: number[]) {
   const y = 50;
   let d = `M -40 ${y} H ${centers[0]}`;
